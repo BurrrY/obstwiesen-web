@@ -7,6 +7,7 @@ import {
 } from "@apollo/client";
 import {
     ApolloNextAppProvider,
+    NextSSRApolloClient,
     NextSSRInMemoryCache,
     SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr";
@@ -14,7 +15,8 @@ import {
 function makeClient() {
     const httpLink = new HttpLink({
         // https://studio.apollographql.com/public/spacex-l4uc6p/
-        uri: "https://main--spacex-l4uc6p.apollographos.net/graphql",
+        uri: "http://localhost:8080/query",
+        //uri: "https://main--spacex-l4uc6p.apollographos.net/graphql",
     });
 
     return new NextSSRApolloClient({

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ApolloWrapper } from "@/lib/apollo-wrapper";
-
+//import { ApolloWrapper } from "@/lib/apollo-wrapper";
+import apolloClient from "@/lib/apollo-client"; // Ensure this points to your Apollo Client instance
 const inter = Inter({ subsets: ["latin"] });
-
+import { ApolloProvider } from '@apollo/client';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <ApolloWrapper>{children}</ApolloWrapper>
+      <ApolloProvider  client={apolloClient}>{children}</ApolloProvider>
       </body>
 
     </html>

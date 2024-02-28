@@ -1,6 +1,9 @@
 {
   "dependencies": {
     "@apollo/client": "^3.9.5",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.2.4",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "graphql": "^16.8.1"
   }
 }
