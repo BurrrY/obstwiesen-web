@@ -8,7 +8,7 @@ export function AddForm() {
         <h1 className="block font-sans text-5xl antialiased font-semibold leading-tight tracking-normal text-inherit">
             New Meadow
         </h1>
-        <form action={createMeadow} method="post"
+        <form onSubmit={createMeadow} method="post"
               className="p-4 max-w-sm mx-auto border border-gray-300 rounded-xl ">
 
             <div className="mb-5">

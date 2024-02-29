@@ -4,7 +4,7 @@ import {Meadow} from "@/__generated__/graphql";
 export const dynamic = "force-dynamic";
 
 import {ApolloClient, InMemoryCache, gql, useQuery} from "@apollo/client";
-import {AddForm} from "@/app/test/add-form";
+import {AddForm} from "@/components/add-form";
 
 
 export default async function Page() {

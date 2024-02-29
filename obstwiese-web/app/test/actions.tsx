@@ -1,18 +1,11 @@
 'use server';
 
 import {Meadow} from "@/__generated__/graphql";
-import {ApolloClient, InMemoryCache, gql, useMutation} from "@apollo/client";
+import {useMutation} from "@apollo/client";
+import {CREATE_MEADOW} from "@/graphlql/queries";
 
 
-const CREATE_USER_MUTATION = gql`mutation ($meadowName: String!) {
-                    createMeadow(input: { name: $meadowName }) {
-                        id
-                        name
-                    }
-                }
-          `;
 export async function createMeadow(formData: FormData) {
-
     console.log('Creating meadow');
     console.log(formData);
     console.log("Name:", formData.get("name"));
@@ -22,18 +15,17 @@ export async function createMeadow(formData: FormData) {
 
 function submitMeadow(meadowName: string):Promise<Meadow>   {
 
-
-    const [createUser, { data, loading, error }] = useMutation(CREATE_USER_MUTATION);
+    const [createMeadow, { data, loading, error }] = useMutation(CREATE_MEADOW);
 
 
     const handleCreateUser = async () => {
         try {
-            const { data } = await createUser({
+            const { data } = await createMeadow({
                 variables: {
                     name: meadowName,
                 },
             });
-            console.log('meadow created:', data.createUser);
+            console.log('meadow created:', data.meadow);
         } catch (error) {
             console.error('Error creating user:', error);
         }
