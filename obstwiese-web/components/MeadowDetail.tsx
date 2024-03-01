@@ -7,6 +7,7 @@ import { GET_MEADOW} from "@/graphlql/queries";
 import {owcHeader} from "@/components/typo_header";
 import {NewMeadowForm} from "@/components/MeadowAdd";
 import {NewTreeForm} from "@/components/TreeAdd";
+import {NewEventForm} from "@/components/EventAdd";
 
 
 
@@ -32,19 +33,21 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
     return (
         <div className="container mx-auto">
             <div className="flex flex-row flex-wrap py-4">
-                <main role="main" className="w-full pt-3 px-4 bg-owc-deep-green">
+                <aside className="w-1/3 px-2 bg-owc-soft-coral">
+                    <div className="sticky top-0 p-4 w-full">
+                        <h1
+                            className="block font-sans text-4xl antialiased font-semibold leading-tight tracking-normal text-inherit">
+                            {meadow.name}
+                        </h1>
 
-                    <h1
-                        className="block font-sans text-4xl antialiased font-semibold leading-tight tracking-normal text-inherit">
-                        {meadow.name}
-                    </h1>
-
+                        <NewTreeForm meadowid={meadow.id}/>
+                    </div>
+                </aside>
+                <main role="main" className="w-2/3 pt-3 px-4 bg-owc-deep-green">
                     <h2
                         className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
                         Trees
                     </h2>
-
-                    <NewTreeForm meadowid={meadow.id} />
 
                     <div className="grid grid-cols-5 gap-4 ">
                         {meadow.trees.map((tree, meadowIndex) => (
@@ -62,7 +65,7 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
             </div>
         </div>
 
-);
+    );
 
     return (<div className="flex">
         <div className="shadow  border-gray-300 rounded-xl border bg-owc-warm-orange p-8 m-5" key={meadow.id}>
