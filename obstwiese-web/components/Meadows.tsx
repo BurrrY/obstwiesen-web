@@ -6,21 +6,27 @@ import {useMutation, useQuery} from "@apollo/client";
 import {CREATE_MEADOW, GET_MEADOWS} from "@/graphlql/queries";
 import {useState} from "react";
 
-
-export const Meadows = () => {
-    let [ meadowName ] = useState("");
-    const {data, loading, error} = useQuery(GET_MEADOWS)
+export const createMessage = (formData: FormData) => {
+    let  meadowName  = "";
     const [addMeadows] = useMutation(CREATE_MEADOW, {
         variables: { meadowName: meadowName },
     })
+
+    const text = formData.get('text') as string;
+
+    console.log(text)
+
+    addMeadows({ variables: { meadowName: meadowName }});
+};
+export const Meadows = () => {
+    const {data, loading, error} = useQuery(GET_MEADOWS)
+
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>error</div>
 
     const meadows: Meadow[] = data.meadows;
 
-    meadowName = "asdasd"
-    addMeadows({ variables: { meadowName: meadowName }});
 
     return (<div className="grid grid-cols-4 gap-4 border border-blue-600 ">
         {meadows.map((meadow, meadowIndex) => (

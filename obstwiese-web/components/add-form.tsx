@@ -1,6 +1,7 @@
 'use client';
 
 import {createMeadow} from "@/app/test/actions";
+import {createMessage} from "@/components/Meadows";
 
 export function AddForm() {
     return (
@@ -8,7 +9,7 @@ export function AddForm() {
         <h1 className="block font-sans text-5xl antialiased font-semibold leading-tight tracking-normal text-inherit">
             New Meadow
         </h1>
-        <form onSubmit={createMeadow} method="post"
+        <form  method="post" action={""}
               className="p-4 max-w-sm mx-auto border border-gray-300 rounded-xl ">
 
             <div className="mb-5">
@@ -22,11 +23,25 @@ export function AddForm() {
     );
 }
 
+// pages/signup.server.js
+export function SignupForm() {
+    return (
+        <form action={createMessage} className="flex flex-col gap-y-2">
+            <label htmlFor="text">Text</label>
+            <textarea id="text" name="text" className="border-2"/>
+
+            <button type="submit" className="border-2">
+                Create
+            </button>
+        </form>
+    );
+}
 
 function SubmitButton() {
     return (
         <div className="mb-5">
-            <button type="submit" className="mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+            <button type="submit"
+                    className="mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                 Create
             </button>
         </div>
