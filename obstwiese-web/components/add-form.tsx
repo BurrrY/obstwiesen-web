@@ -6,20 +6,15 @@ import {useMutation} from "@apollo/client";
 
 
 export const NewMeadowForm = () => {
-
-
     let  newMeadowName  = "";
     const [addMeadows] = useMutation(CREATE_MEADOW, {
-        variables: { meadowName: newMeadowName },
+        variables: { newMeadowName },
     })
 
     const createMessage = (formData: FormData) => {
         let newMeadowName2 = formData.get('meadowName') as string;
-        console.log(formData);
         addMeadows({ variables: { meadowName: newMeadowName2.trim() }});
     };
-
-
 
     return (
         <div  className="border border-gray-300">
