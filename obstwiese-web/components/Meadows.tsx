@@ -8,6 +8,10 @@ import {useState} from "react";
 
 
 
+interface MeadowDetailProps {
+    id: string
+}
+
 export const Meadows = () => {
     const {data, loading, error} = useQuery(GET_MEADOWS)
 

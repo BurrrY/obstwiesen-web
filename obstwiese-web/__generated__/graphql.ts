@@ -19,12 +19,14 @@ export type Event = {
   __typename?: 'Event';
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  parentID: Scalars['ID']['output'];
   timestamp: Scalars['String']['output'];
   title: Scalars['String']['output'];
 };
 
 export type Meadow = {
   __typename?: 'Meadow';
+  events?: Maybe<Array<Event>>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   trees: Array<Tree>;
@@ -54,8 +56,9 @@ export type MutationCreateTreeArgs = {
 
 export type NewEvent = {
   description: Scalars['String']['input'];
+  parentID: Scalars['String']['input'];
+  timestamp: Scalars['String']['input'];
   title: Scalars['String']['input'];
-  treeID: Scalars['String']['input'];
 };
 
 export type NewMeadow = {
@@ -70,7 +73,9 @@ export type NewTree = {
 export type Query = {
   __typename?: 'Query';
   events: Array<Event>;
+  meadow?: Maybe<Meadow>;
   meadows: Array<Meadow>;
+  tree?: Maybe<Tree>;
   trees: Array<Tree>;
 };
 
@@ -80,13 +85,23 @@ export type QueryEventsArgs = {
 };
 
 
+export type QueryMeadowArgs = {
+  meadow_id: Scalars['ID']['input'];
+};
+
+
+export type QueryTreeArgs = {
+  tree_id: Scalars['ID']['input'];
+};
+
+
 export type QueryTreesArgs = {
   meadow_id: Scalars['String']['input'];
 };
 
 export type Tree = {
   __typename?: 'Tree';
-  events: Array<Maybe<Event>>;
+  events?: Maybe<Array<Event>>;
   id: Scalars['ID']['output'];
   lang?: Maybe<Scalars['Float']['output']>;
   lat?: Maybe<Scalars['Float']['output']>;

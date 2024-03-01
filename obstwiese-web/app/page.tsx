@@ -3,7 +3,7 @@ import {Meadow} from "@/__generated__/graphql";
 
 export const dynamic = "force-dynamic";
 
-import {NewMeadowForm} from "@/components/add-form";
+import {NewMeadowForm} from "@/components/MeadowAdd";
 import {Meadows} from "@/components/Meadows";
 
 
