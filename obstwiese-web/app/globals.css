@@ -15,13 +15,7 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-/*
-    Deep green (#4C956C) for vegetation and forests.
-    Vibrant leaf green (#88B04B) for fresh leaves and grass.
-    Soft beige (#F3E9D2) for sandy beaches and trails.
-    Warm orange (#F5B461) for sunsets and autumn leaves.
-    Soft coral (#E9897E) for flowers and sunrises.
- */
+
 
 body {
   color: rgb(var(--foreground-rgb));
