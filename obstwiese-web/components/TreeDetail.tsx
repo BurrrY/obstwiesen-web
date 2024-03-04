@@ -19,7 +19,7 @@ interface TreeDetailProps {
 function EventImage(props: { data: Maybe<Array<File>> | undefined }) {
 
     let fileList = props.data
-    if (!fileList) {
+    if (!fileList ||fileList.length == 0) {
         return (<p>No files.</p>)
     }
 
@@ -90,20 +90,16 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
                             className="block font-sans text-4xl mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
                             {tree.name}
                         </h1>
-
                         <NewEventForm parent_id={tree.id}/>
                     </div>
                 </aside>
-                <main role="main" className="w-2/3 p-3 px-4 bg-owc-deep-green">
 
+                <main role="main" className="w-2/3 p-3 px-4 bg-owc-deep-green">
                     <h2
                         className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
                         Events
                     </h2>
-
-
                     <EventElem data={tree.events}/>
-
                 </main>
             </div>
         </div>
