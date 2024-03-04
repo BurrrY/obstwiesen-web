@@ -1,6 +1,6 @@
 
 import "./globals.css";
-import {Providers} from "@/components/Providers";
+import {Providers} from "@/components/Providers.mjs";
 import {PageHeader} from "@/components/Header";
 
 

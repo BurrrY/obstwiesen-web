@@ -50,6 +50,31 @@ mutation m($meadowName: String!) {
         name
     }
 }`;
+
+export const MULTI_UPLOAD_FILES = gql`
+mutation SingleUpload($parentID: ID!, $req: [UploadFile!]!) {
+    multipleUpload(
+        parentID: $parentID
+        req: $req
+    ) {
+      id
+      name
+    }
+}
+`;
+
+export const UPLOAD_FILE = gql`
+mutation SingleUpload($parentID: ID!, $file: Upload!) {
+    singleUpload(
+        parentID: $parentID
+        file: $file
+    ) {
+      id
+      name
+    }
+}
+`;
+
 export const CREATE_EVENT = gql`
 mutation CreateEvent( $parentID: String!, $title: String!, $description: String!, $timestamp: String!) {
     createEvent(
