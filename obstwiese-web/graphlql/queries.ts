@@ -52,10 +52,10 @@ mutation m($meadowName: String!) {
 }`;
 
 export const MULTI_UPLOAD_FILES = gql`
-mutation SingleUpload($parentID: ID!, $req: [UploadFile!]!) {
+mutation MultipleUpload($parentID: ID!, $files: [Upload!]!) {
     multipleUpload(
         parentID: $parentID
-        req: $req
+        files: $files
     ) {
       id
       name

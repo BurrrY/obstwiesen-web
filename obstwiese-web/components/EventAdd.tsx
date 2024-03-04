@@ -1,7 +1,7 @@
 'use client';
 
 
-import {CREATE_EVENT, UPLOAD_FILE} from "@/graphlql/queries";
+import {CREATE_EVENT, MULTI_UPLOAD_FILES, UPLOAD_FILE} from "@/graphlql/queries";
 import {useMutation} from "@apollo/client";
 import {useState} from "react";
 import { useApolloClient } from "@apollo/client/react/hooks/useApolloClient.js";
@@ -23,7 +23,8 @@ export const NewEventForm = ({parent_id}: NewEventFormProps) => {
     //    variables: { parentID: newEventName, file: newEventName  },
     //})
 
-    const [doUpload, { loading, error }] = useMutation(UPLOAD_FILE)
+    //working single const [doUpload, { loading, error }] = useMutation(UPLOAD_FILE)
+    const [doUpload, { loading, error }] = useMutation(MULTI_UPLOAD_FILES)
 
     const createMessage = (formData: FormData) => {
         let title = formData.get('title') as string;
@@ -35,8 +36,8 @@ export const NewEventForm = ({parent_id}: NewEventFormProps) => {
 
 
     const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
-        console.log("File changed", event.target.files[0]);
+        setFile(event.target.files);
+        console.log("File changed", event.target.files);
         console.log("File changed2", file);
     };
 
@@ -46,7 +47,7 @@ export const NewEventForm = ({parent_id}: NewEventFormProps) => {
             console.log("File parent_id:", parent_id);
             await doUpload({
                 variables: {
-                    file: file,
+                    files: file,
                     parentID: parent_id
                 },
             });
@@ -104,7 +105,7 @@ export const NewEventForm = ({parent_id}: NewEventFormProps) => {
 
             <p className="flex flex-col gap-y-2 items-center p-3">
                 <div className="w-full">
-                    <input  onChange={handleFileChange}
+                    <input  onChange={handleFileChange}  multiple="multiple"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         type="file" id="file" name="file" placeholder="file" required/>
                 </div>
