@@ -23,6 +23,10 @@ export const GET_TREE = gql`query Tree($id: ID!) {
             title
             description
             timestamp
+            files {
+                parentID
+                path
+            }
         }
     }
 }
@@ -76,13 +80,14 @@ mutation SingleUpload($parentID: ID!, $file: Upload!) {
 `;
 
 export const CREATE_EVENT = gql`
-mutation CreateEvent( $parentID: String!, $title: String!, $description: String!, $timestamp: String!) {
+mutation CreateEvent( $parentID: String!, $title: String!, $description: String!, $timestamp: String!, $files: [Upload!]) {
     createEvent(
         input: {
             parentID: $parentID
             title: $title
             description: $description
             timestamp: $timestamp
+            files: $files
         }
     ) {
         id

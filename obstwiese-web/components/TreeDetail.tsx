@@ -1,11 +1,12 @@
 "use client";
 
 
-import {Tree} from "@/__generated__/graphql";
+import {Tree, Event, File} from "@/__generated__/graphql";
 import {useQuery} from "@apollo/client";
 import { GET_TREE} from "@/graphlql/queries";
 import {NewEventForm} from "@/components/EventAdd";
-
+import {Maybe} from "@graphql-tools/utils";
+import Image from 'next/image';
 
 
 interface TreeDetailProps {
@@ -13,13 +14,67 @@ interface TreeDetailProps {
     treeid: string
 }
 
+//const EventImage = (src: Maybe<Array<File>>) => {
+
+function EventImage(props: { data: Maybe<Array<File>> | undefined }) {
+
+    let fileList = props.data
+    if (!fileList) {
+        return (<p>No files.</p>)
+    }
+
+
+    return (
+        <div className="flex flex-col gap-1 ">
+            {fileList.map((file, idx) => (
+                <div className="bg-owc-warm-orange p-3 m-2"
+                     key={file.path}>
+                    <Image src={`http://localhost:8080${file.path}`} alt="Description" width={500} height={300} />
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function EventElem(props: { data: Maybe<Array<Event>> | undefined }) {
+
+    let eventList = props.data
+    if (!eventList) {
+        return (<p>No events.</p>)
+    }
+
+    return (
+        <div className="flex flex-col gap-1 ">
+            {eventList.map((event, idx) => (
+                <div className="bg-owc-warm-orange p-3 m-2"
+                     key={event.id}>
+                    <h1
+                        className="font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
+                        {event.title}
+                    </h1>
+                    <p
+                        className="font-sans antialiased tracking-normal text-inherit">
+                        {event.timestamp}
+                    </p>
+                    <p
+                        className="font-sans antialiased tracking-normal text-inherit">
+                        {event.description}
+                    </p>
+                    <EventImage data={event.files} />
+                </div>
+            ))}
+        </div>
+
+    );
+}
+
 export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
     const {data, loading, error} = useQuery(GET_TREE, {
-        variables: { id: treeid },
+        variables: {id: treeid},
     })
 
     if (loading) return <div>Loading...</div>
-    if (error){
+    if (error) {
         console.log("error: ", error)
         return <div>error</div>
     }
@@ -47,25 +102,7 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
                     </h2>
 
 
-                    <div className="flex flex-col gap-1 ">
-                        {tree.events.map((event, meadowIndex) => (
-                            <div className="bg-owc-warm-orange p-3 m-2"
-                                 key={event.id}>
-                                <h1
-                                   className="font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
-                                    {event.title}
-                                </h1>
-                                <p
-                                   className="font-sans antialiased tracking-normal text-inherit">
-                                    {event.timestamp}
-                                </p>
-                                <p
-                                   className="font-sans antialiased tracking-normal text-inherit">
-                                    {event.description}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
+                    <EventElem data={tree.events}/>
 
                 </main>
             </div>

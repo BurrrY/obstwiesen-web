@@ -19,6 +19,7 @@ export type Scalars = {
 export type Event = {
   __typename?: 'Event';
   description: Scalars['String']['output'];
+  files?: Maybe<Array<File>>;
   id: Scalars['ID']['output'];
   parentID: Scalars['ID']['output'];
   timestamp: Scalars['String']['output'];
@@ -28,9 +29,8 @@ export type Event = {
 /** The `File` type, represents the response of uploading a file. */
 export type File = {
   __typename?: 'File';
-  content: Scalars['String']['output'];
-  id: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
+  parentID: Scalars['String']['output'];
+  path: Scalars['String']['output'];
 };
 
 export type Meadow = {
@@ -67,8 +67,8 @@ export type MutationCreateTreeArgs = {
 
 
 export type MutationMultipleUploadArgs = {
+  files: Array<Scalars['Upload']['input']>;
   parentID: Scalars['ID']['input'];
-  req: Array<UploadFile>;
 };
 
 
@@ -79,6 +79,7 @@ export type MutationSingleUploadArgs = {
 
 export type NewEvent = {
   description?: InputMaybe<Scalars['String']['input']>;
+  files?: InputMaybe<Array<Scalars['Upload']['input']>>;
   parentID: Scalars['String']['input'];
   timestamp: Scalars['String']['input'];
   title: Scalars['String']['input'];
