@@ -1,5 +1,5 @@
 async function getData(path: string) {
-    let url: string = 'http://localhost:8080/' +path;
+    let url: string = path;
     console.log(url)
     const res = await fetch( url)
     // The return value is *not* serialized
@@ -14,7 +14,7 @@ async function getData(path: string) {
 }
 
 export default async function Page(path:string, file:string) {
-    const data = await getData("/assets/${path}/${file}")
+    const data = await getData(path)
 
     return data
 }

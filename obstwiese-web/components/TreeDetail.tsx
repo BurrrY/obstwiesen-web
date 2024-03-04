@@ -29,7 +29,7 @@ function EventImage(props: { data: Maybe<Array<File>> | undefined }) {
             {fileList.map((file, idx) => (
                 <div className="bg-owc-warm-orange p-3 m-2"
                      key={file.path}>
-                    <Image src={`http://localhost:8080${file.path}`} alt="Description" width={500} height={300} />
+                    <Image src={file.path} alt="Description" width={500} height={300} />
                 </div>
             ))}
         </div>
