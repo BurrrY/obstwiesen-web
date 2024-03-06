@@ -8,6 +8,12 @@ const nextConfig = {
                 port: '8080',
                 pathname: '/assets/**',
             },
+            {
+                protocol: 'https',
+                hostname: 'obstapi.bury.link',
+                port: '443',
+                pathname: '/assets/**',
+            },
         ],
     },
     output: 'standalone',
