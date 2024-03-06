@@ -52,14 +52,14 @@ export const NewEventForm = ({parent_id}: NewEventFormProps) => {
                 <div className=" w-full">
                     <textarea
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="desc" name="desc" placeholder="Description" required/>
+                        id="desc" name="desc" placeholder="Description"/>
                 </div>
 
 
                 <div className="w-full">
                     <input onChange={handleFileChange} multiple={true}
                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                           type="file" id="file" name="file" placeholder="file" required/>
+                           type="file" id="file" name="file" placeholder="file"/>
                 </div>
 
                 <div className="flex justify-between w-full">

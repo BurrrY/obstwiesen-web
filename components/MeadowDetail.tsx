@@ -32,9 +32,9 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
 
     return (
         <div className="container mx-auto">
-            <div className="flex flex-row flex-wrap py-4">
-                <aside className="w-1/3 px-2 bg-owc-soft-coral">
-                    <div className="sticky top-0 p-4 w-full">
+            <div className="flex flex-col lg:flex-row flex-wrap py-4">
+                <aside className="lg:w-1/3 px-2 bg-owc-soft-coral">
+                    <div className="sticky  top-0 p-4 w-full">
                         <h1
                             className="block font-sans text-4xl antialiased font-semibold leading-tight tracking-normal text-inherit">
                             {meadow.name}
@@ -43,13 +43,13 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
                         <NewTreeForm meadowid={meadow.id}/>
                     </div>
                 </aside>
-                <main role="main" className="w-2/3 pt-3 px-4 bg-owc-deep-green">
+                <main role="main" className="lg:w-2/3 pt-3 px-4 bg-owc-deep-green">
                     <h2
                         className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
                         Trees
                     </h2>
 
-                    <div className="grid grid-cols-5 gap-4 ">
+                    <div className="grid lg:grid-cols-5 grid-cols-2">
                         {meadow.trees.map((tree, meadowIndex) => (
                             <div className="bg-owc-warm-orange flex p-8 m-5"
                                  key={tree.id}>

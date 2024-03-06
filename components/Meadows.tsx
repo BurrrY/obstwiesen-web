@@ -22,14 +22,14 @@ export const Meadows = () => {
     const meadows: Meadow[] = data.meadows;
 
 
-    return (<div className="grid grid-cols-5 gap-4 ">
+    return (<div className="grid grid-cols-2 md:grid-cols-5">
         {meadows.map((meadow, meadowIndex) => (
             <div className="shadow  border-gray-300 rounded-xl border bg-owc-warm-orange p-8 m-5" key={meadow.id}>
                 <a href={`/meadows/${meadow.id}`}
-                    className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
+                    className="block font-sans text-2xl md:text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
                     {meadow.name}
                 </a>
-                <p className="block py-4 text-2xl font-normal text-gray-500">
+                <p className="block py-4 text-1xl font-normal text-gray-500">
                     <p>{meadow.trees.length} trees</p>
                 </p>
             </div>
