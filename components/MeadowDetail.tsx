@@ -49,7 +49,7 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
                         Trees
                     </h2>
 
-                    <div className="grid lg:grid-cols-5 grid-cols-2">
+                    <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1">
                         {meadow.trees.map((tree, meadowIndex) => (
                             <div className="bg-owc-warm-orange flex p-8 m-5"
                                  key={tree.id}>

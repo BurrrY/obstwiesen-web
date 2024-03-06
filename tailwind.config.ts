@@ -23,6 +23,7 @@ const config: Config = {
       'owc-soft-beige': '#F3E9D2',
       'owc-warm-orange': '#F5B461',
       'owc-soft-coral': '#E9897E',
+      'owc-soft-coral-light': '#fcada1',
     },
   },
   plugins: [],
