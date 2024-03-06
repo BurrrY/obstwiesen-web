@@ -15,7 +15,8 @@ export const NewEventForm = ({parent_id}: NewEventFormProps) => {
 
     const [addEvents] = useMutation(CREATE_EVENT)
 
-    const handleFileChange = (event) => {
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        // @ts-ignore
         setFile(event.target.files);
         console.log("File changed", event.target.files);
         console.log("File changed2", file);
@@ -56,7 +57,7 @@ export const NewEventForm = ({parent_id}: NewEventFormProps) => {
 
 
                 <div className="w-full">
-                    <input onChange={handleFileChange} multiple="multiple"
+                    <input onChange={handleFileChange} multiple={true}
                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                            type="file" id="file" name="file" placeholder="file" required/>
                 </div>
