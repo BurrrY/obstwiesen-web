@@ -11,6 +11,9 @@ const nextConfig = {
         ],
     },
     output: 'standalone',
+    env: {
+        GQL_HOST: process.env.NEXT_PUBLIC_GQL_HOST,
+    },
 };
 
 
