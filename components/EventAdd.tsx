@@ -4,12 +4,14 @@
 import {CREATE_EVENT, MULTI_UPLOAD_FILES, UPLOAD_FILE} from "@/graphlql/queries";
 import {useMutation} from "@apollo/client";
 import {useState} from "react";
+import {OwcSubmitButton, OwcTextInput, OwcDateInput, OwcTextarea, OwcFileInput} from "@/components/forms/FormElements";
 
 
 interface NewEventFormProps {
     parent_id: string
     onFormSubmit: () => void;
 }
+
 
 export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
     const [file, setFile] = useState(null);
@@ -43,41 +45,17 @@ export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
     };
 
     return (
-        <div className="border border-gray-300 justify-center">
+        <div className="bg-owc-soft-coral-light justify-center">
             <p className="block p-2 text-2xl font-normal text-gray-500">
                 New Event
             </p>
 
             <form action={createFileMessage} className="flex flex-col gap-y-2 items-center p-3">
-                <div className=" w-full">
-                    <input
-                        className="shadow appearance-none border rounded  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="text" id="title" name="title" placeholder="Title" required/>
-                </div>
-                <div className=" w-full">
-                    <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="datetime-local" id="timestamp" defaultValue={dateTime} name="timestamp" placeholder="Timestamp" required/>
-                </div>
-                <div className=" w-full">
-                    <textarea
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="desc" name="desc" placeholder="Description"/>
-                </div>
-
-
-                <div className="w-full">
-                    <input onChange={handleFileChange} multiple={true}
-                           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                           type="file" id="file" name="file" placeholder="file"/>
-                </div>
-
-                <div className="flex justify-between w-full">
-                    <button type="submit"
-                            className="bg-owc-vibrant-leaf-green hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Create
-                    </button>
-                </div>
+                <OwcTextInput  name="title" label="Title" required={true} />
+                <OwcDateInput  name="timestamp" label="Timestamp"  defaultValue={dateTime}  required={true} />
+                <OwcTextarea  name="desc" label="Description" />
+                <OwcFileInput  name="file" label="Images" onChange={handleFileChange} />
+                <OwcSubmitButton text="Create" />
             </form>
         </div>
     );

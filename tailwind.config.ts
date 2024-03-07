@@ -18,12 +18,33 @@ const config: Config = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
+
+      'owc-deep-green-dark': '#3d7757',
       'owc-deep-green': '#4C956C',
+      'owc-deep-green-light': '#5cb085',
+
+
+      'owc-vibrant-leaf-green-dark': '#668138',
       'owc-vibrant-leaf-green': '#88B04B',
+      'owc-vibrant-leaf-green-light': '#aade5c',
+
+      'owc-soft-beige-dark': '#daceb2',
       'owc-soft-beige': '#F3E9D2',
+      'owc-soft-beige-light': '#efede7',
+
+
+      'owc-warm-orange-dark': '#cc9851',
       'owc-warm-orange': '#F5B461',
+      'owc-warm-orange-light': '#f5b975',
+
+      'owc-soft-coral-dark': '#d27d72',
       'owc-soft-coral': '#E9897E',
       'owc-soft-coral-light': '#fcada1',
+
+      'gray-200': '#989898',
+      'gray-500': '#626262',
+      'gray-700': '#2f2f2f',
+      'gray-900': '#0e0e0e',
     },
   },
   plugins: [],

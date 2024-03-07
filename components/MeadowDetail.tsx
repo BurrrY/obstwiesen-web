@@ -63,17 +63,4 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
         </div>
 
     );
-
-    return (<div className="flex">
-        <div className="shadow  border-gray-300 rounded-xl border bg-owc-warm-orange p-8 m-5" key={meadow.id}>
-            <a href={`/meadows/${meadow.id}`}
-               className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
-                {meadow.name}
-            </a>
-            <p className="block py-4 text-2xl font-normal text-gray-500">
-                <p>{meadow.trees.length} trees</p>
-                </p>
-            </div>
-
-    </div>);
 };
