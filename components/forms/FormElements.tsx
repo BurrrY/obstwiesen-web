@@ -43,7 +43,7 @@ export const OwcSubmitButton = ({text}: OwcSubmitButtonProps) => {
     return (
         <div className="w-full ">
             <button type="submit"
-                    className="w-full align-middle text-owc-soft-coral-light select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none py-3 px-6 bg-owc-deep-green text-white shadow-md shadow-owc-deep-green/10 hover:shadow-lg hover:shadow-owc-deep-green/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-full">
+                    className="w-full align-middle text-owc-soft-coral-light select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none py-3 px-6 bg-owc-deep-green shadow-md shadow-owc-deep-green/10 hover:shadow-lg hover:shadow-owc-deep-green/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-full">
                 {text}
             </button>
         </div>
@@ -100,6 +100,7 @@ export const OwcTextarea = ({ name, label }: OwcTextareaProps) => {
     return (
         <div className="relative w-full min-w-[200px]">
             <textarea
+                name={`${name}`}
                 className="peer h-full min-h-[100px] w-full resize-none border-b border-owc-soft-coral-dark bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-gray-700 outline outline-0 transition-all placeholder-shown:border-owc-soft-coral-dark focus:border-owc-soft-coral-light focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
                 placeholder=" ">
             </textarea>

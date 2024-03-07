@@ -29,6 +29,7 @@ export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
 
 
     const createFileMessage = async (formData: FormData) => {
+        console.log(formData)
         let title = formData.get('title') as string;
         let timestamp = formData.get('timestamp') as string;
         let desc = formData.get('desc') as string;
@@ -45,17 +46,17 @@ export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
     };
 
     return (
-        <div className="bg-owc-soft-coral-light justify-center">
-            <p className="block p-2 text-2xl font-normal text-gray-500">
-                New Event
-            </p>
+        <div className="bg-owc-soft-coral-light justify-center  rounded rounded-3xl">
 
             <form action={createFileMessage} className="flex flex-col gap-y-2 items-center p-3">
-                <OwcTextInput  name="title" label="Title" required={true} />
-                <OwcDateInput  name="timestamp" label="Timestamp"  defaultValue={dateTime}  required={true} />
-                <OwcTextarea  name="desc" label="Description" />
-                <OwcFileInput  name="file" label="Images" onChange={handleFileChange} />
-                <OwcSubmitButton text="Create" />
+                <p className="block lg:text-2xl text-lg font-normal text-gray-500">
+                    new event
+                </p>
+                <OwcTextInput name="title" label="Title" required={true}/>
+                <OwcDateInput name="timestamp" label="Timestamp" defaultValue={dateTime} required={true}/>
+                <OwcTextarea name="desc" label="Description"/>
+                <OwcFileInput name="file" label="Images" onChange={handleFileChange}/>
+                <OwcSubmitButton text="Create"/>
             </form>
         </div>
     );

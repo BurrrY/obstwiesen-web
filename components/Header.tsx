@@ -2,7 +2,7 @@
 
 export const PageHeader = () => {
 return (
-    <header className="pb-6 bg-white lg:pb-0 bg-owc-vibrant-leaf-green">
+    <header className="pb-6 lg:pb-0 bg-owc-vibrant-leaf-green">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
             <nav className="flex items-center justify-between h-16 lg:h-20">

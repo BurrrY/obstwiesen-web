@@ -26,7 +26,7 @@ export const NewTreeForm = ({meadowid,  onFormSubmit }: NewTreeFormProps) => {
     };
 
     return (
-        <div  className="bg-owc-soft-coral-light p-4">
+        <div  className="bg-owc-soft-coral-light p-4  rounded rounded-3xl">
             <form action={createMessage} className="flex flex-col lg:gap-x-2 gap-y-2 items-center lg:p-3">
                 <p className="block lg:text-2xl text-lg font-normal text-gray-500">
                     new tree

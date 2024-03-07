@@ -64,7 +64,7 @@ function EventElem(props: { data: Maybe<Array<Event>> | undefined }) {
     }
 
     return (
-        <div className="flex flex-col gap-1 ">
+        <div className="flex flex-col gap-1  w-full">
             {eventList.map((event, idx) => (
                 <div className="bg-owc-warm-orange p-3 m-2"
                      key={event.id}>
@@ -105,7 +105,7 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
     return (
         <div className="container mx-auto">
             <div className="flex flex-col lg:flex-row flex-wrap py-4">
-                <aside className="lg:w-1/3 px-2 bg-owc-soft-coral">
+                <aside className="lg:w-1/3 px-2">
                     <div className="sticky top-0 p-4 w-full">
                         <h1
                             className="block font-sans text-4xl mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
@@ -115,7 +115,7 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
                     </div>
                 </aside>
 
-                <main role="main" className="lg:w-2/3 p-3 px-4 bg-owc-deep-green">
+                <main role="main" className="lg:w-2/3 p-3 px-4 bg-owc-deep-green rounded-3xl flex flex-col items-center">
                     <h2
                         className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
                         Events

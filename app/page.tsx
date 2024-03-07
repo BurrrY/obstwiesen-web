@@ -18,7 +18,7 @@ export default function Page() {
     return (
         <div className="container mx-auto">
             <div className="flex flex-col lg:flex-row flex-wrap py-4">
-                <aside className="lg:w-1/3 px-2 bg-owc-soft-coral">
+                <aside className="lg:w-1/3 px-2">
                     <div className="sticky top-0 p-4 w-full">
                         <h1
                             className="block font-sans text-4xl mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
@@ -28,9 +28,9 @@ export default function Page() {
                     </div>
                 </aside>
 
-                <main role="main" className="lg:w-2/3 p-3 px-4 bg-owc-deep-green">
+                <main role="main" className="lg:w-2/3 p-3 px-4 bg-owc-deep-green rounded-3xl flex flex-col items-center">
                     <h2
-                        className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
+                        className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit mb-6">
                         Meadows
                     </h2>
 
