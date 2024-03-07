@@ -8,9 +8,10 @@ import {useState} from "react";
 
 interface NewEventFormProps {
     parent_id: string
+    onFormSubmit: () => void;
 }
 
-export const NewEventForm = ({parent_id}: NewEventFormProps) => {
+export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
     const [file, setFile] = useState(null);
 
     const [addEvents] = useMutation(CREATE_EVENT)
@@ -25,11 +26,20 @@ export const NewEventForm = ({parent_id}: NewEventFormProps) => {
     let dateTime = new Date().toISOString().substring(0, 16)
 
 
-    const createFileMessage = (formData: FormData) => {
+    const createFileMessage = async (formData: FormData) => {
         let title = formData.get('title') as string;
         let timestamp = formData.get('timestamp') as string;
         let desc = formData.get('desc') as string;
-        addEvents({ variables: { parentID: parent_id, title: title, description: desc, timestamp: timestamp, files: file }});
+        await addEvents({
+            variables: {
+                parentID: parent_id,
+                title: title,
+                description: desc,
+                timestamp: timestamp,
+                files: file
+            }
+        });
+        onFormSubmit()
     };
 
     return (
@@ -47,7 +57,7 @@ export const NewEventForm = ({parent_id}: NewEventFormProps) => {
                 <div className=" w-full">
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="datetime-local" id="timestamp" value={dateTime} name="timestamp" placeholder="Timestamp" required/>
+                        type="datetime-local" id="timestamp" defaultValue={dateTime} name="timestamp" placeholder="Timestamp" required/>
                 </div>
                 <div className=" w-full">
                     <textarea

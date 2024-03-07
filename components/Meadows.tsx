@@ -4,7 +4,7 @@
 import {Meadow} from "@/__generated__/graphql";
 import {useMutation, useQuery} from "@apollo/client";
 import {CREATE_MEADOW, GET_MEADOWS} from "@/graphlql/queries";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {NewEventForm} from "@/components/EventAdd";
 
 
@@ -13,9 +13,16 @@ interface MeadowDetailProps {
     id: string
 }
 
-export const Meadows = () => {
-    const {data, loading, error} = useQuery(GET_MEADOWS)
+interface ChildProps {
+    triggerRefetch: boolean;
+}
+export const Meadows = ({triggerRefetch}: ChildProps) => {
+    const {data, loading, error, refetch} = useQuery(GET_MEADOWS)
 
+    useEffect(() => {
+        // This effect will run when `triggerRefetch` changes.
+        refetch();
+    }, [triggerRefetch, refetch]);
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>error</div>

@@ -4,10 +4,7 @@
 import {Meadow} from "@/__generated__/graphql";
 import {useQuery} from "@apollo/client";
 import { GET_MEADOW} from "@/graphlql/queries";
-import {owcHeader} from "@/components/typo_header";
-import {NewMeadowForm} from "@/components/MeadowAdd";
 import {NewTreeForm} from "@/components/TreeAdd";
-import {NewEventForm} from "@/components/EventAdd";
 
 
 
@@ -15,17 +12,17 @@ interface MeadowDetailProps {
     id: string
 }
 
+
 export const MeadowDetail = ({id}: MeadowDetailProps) => {
     let meadowID = id
 
-    const {data, loading, error} = useQuery(GET_MEADOW, {
+    const {data, loading, error, refetch} = useQuery(GET_MEADOW, {
         variables: { id: meadowID },
     })
 
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>error</div>
-    console.log("error: ", error)
 
     const meadow: Meadow = data.meadow;
 
@@ -40,7 +37,7 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
                             {meadow.name}
                         </h1>
 
-                        <NewTreeForm meadowid={meadow.id}/>
+                        <NewTreeForm meadowid={meadow.id} onFormSubmit={() => refetch()}/>
                     </div>
                 </aside>
                 <main role="main" className="lg:w-2/3 pt-3 px-4 bg-owc-deep-green">
@@ -49,7 +46,7 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
                         Trees
                     </h2>
 
-                    <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1">
+                    <div className="grid xl:grid-cols-5 md:grid-cols-2 grid-cols-1">
                         {meadow.trees.map((tree, meadowIndex) => (
                             <div className="bg-owc-warm-orange flex p-8 m-5"
                                  key={tree.id}>

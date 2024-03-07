@@ -7,19 +7,21 @@ import {useMutation} from "@apollo/client";
 
 interface NewTreeFormProps {
     meadowid: string
+    onFormSubmit: () => void;
 }
 
-export const NewTreeForm = ({meadowid}: NewTreeFormProps) => {
+export const NewTreeForm = ({meadowid,  onFormSubmit }: NewTreeFormProps) => {
     let  newTreeName  = "";
     let  parent_meadow  = "";
     const [addTrees] = useMutation(CREATE_TREE, {
         variables: { meadow: parent_meadow, name: newTreeName },
     })
 
-    const createMessage = (formData: FormData) => {
+    const createMessage = async (formData: FormData) => {
         let newTreeName2 = formData.get('treeName') as string;
         let parent_meadow2 = formData.get('meadowID') as string;
-        addTrees({ variables: { meadow: parent_meadow2.trim(), name: newTreeName2.trim() }});
+        await addTrees({variables: {meadow: parent_meadow2.trim(), name: newTreeName2.trim()}});
+        onFormSubmit();
     };
 
     return (

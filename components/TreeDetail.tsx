@@ -69,9 +69,10 @@ function EventElem(props: { data: Maybe<Array<Event>> | undefined }) {
 }
 
 export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
-    const {data, loading, error} = useQuery(GET_TREE, {
+    const {data, loading, error, refetch} = useQuery(GET_TREE, {
         variables: {id: treeid},
     })
+
 
     if (loading) return <div>Loading...</div>
     if (error) {
@@ -90,7 +91,7 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
                             className="block font-sans text-4xl mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
                             {tree.name}
                         </h1>
-                        <NewEventForm parent_id={tree.id}/>
+                        <NewEventForm parent_id={tree.id} onFormSubmit={() => refetch()}/>
                     </div>
                 </aside>
 

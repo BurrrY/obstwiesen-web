@@ -5,15 +5,21 @@ import {CREATE_MEADOW} from "@/graphlql/queries";
 import {useMutation} from "@apollo/client";
 
 
-export const NewMeadowForm = () => {
+// @ts-ignore
+interface NewMeadowFormProps {
+    onFormSubmit: () => void;
+}
+
+export const NewMeadowForm = ({onFormSubmit}: NewMeadowFormProps) => {
     let  newMeadowName  = "";
     const [addMeadows] = useMutation(CREATE_MEADOW, {
         variables: { newMeadowName },
     })
 
-    const createMessage = (formData: FormData) => {
+    const createMessage = async (formData: FormData) => {
         let newMeadowName2 = formData.get('meadowName') as string;
-        addMeadows({ variables: { meadowName: newMeadowName2.trim() }});
+        await addMeadows({ variables: { meadowName: newMeadowName2.trim() }});
+        onFormSubmit()
     };
 
     return (

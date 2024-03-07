@@ -1,14 +1,19 @@
-import {Meadow} from "@/__generated__/graphql";
-
+'use client';
 
 export const dynamic = "force-dynamic";
 
 import {NewMeadowForm} from "@/components/MeadowAdd";
 import {Meadows} from "@/components/Meadows";
-import {NewEventForm} from "@/components/EventAdd";
+import {useState} from "react";
 
+export default function Page() {
 
-export default async function Page() {
+    const [triggerRefetch, setTriggerRefetch] = useState(false);
+    const handleReload = () => {
+        console.log("reload!")
+        setTriggerRefetch(prev => !prev);
+    }
+
 
     return (
         <div className="container mx-auto">
@@ -19,7 +24,7 @@ export default async function Page() {
                             className="block font-sans text-4xl mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
                             Hello!
                         </h1>
-                        <NewMeadowForm />
+                        <NewMeadowForm onFormSubmit={handleReload} />
                     </div>
                 </aside>
 
@@ -28,7 +33,8 @@ export default async function Page() {
                         className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
                         Meadows
                     </h2>
-                    <Meadows />
+
+                    <Meadows  triggerRefetch={triggerRefetch}  />
                 </main>
             </div>
         </div>
