@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 
 import {Tree, Event, File} from "@/__generated__/graphql";
@@ -16,6 +16,16 @@ interface TreeDetailProps {
 
 //const EventImage = (src: Maybe<Array<File>>) => {
 
+interface ImageLoaderProps {
+    src: string;
+    width: number;
+    quality?: number;
+}
+
+const imageLoader = ({ src, width, quality }: ImageLoaderProps): string => {
+    return `${src}?w=${width}`;
+};
+
 function EventImage(props: { data: Maybe<Array<File>> | undefined }) {
 
     let fileList = props.data
@@ -23,13 +33,23 @@ function EventImage(props: { data: Maybe<Array<File>> | undefined }) {
         return (<p>No files.</p>)
     }
 
-
     return (
         <div className="flex flex-col gap-1 ">
             {fileList.map((file, idx) => (
-                <div className="bg-owc-warm-orange p-3 m-2"
+                <div className="bg-owc-warm-orange p-3 m-2 w-full relative  "
                      key={file.path}>
-                    <Image src={file.path} alt="Description" width={500} height={300} />
+                    <Image src={`${file.path}`}
+                           className="w-full"
+                           loader={imageLoader} alt="Description"
+                           sizes="100vw"
+
+                           width={70}
+                           height={45}
+                           style={{
+                               width: '100%',
+                               height: 'auto',
+                           }}
+                    />
                 </div>
             ))}
         </div>

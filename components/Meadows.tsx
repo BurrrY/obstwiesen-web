@@ -20,7 +20,6 @@ export const Meadows = ({triggerRefetch}: ChildProps) => {
     const {data, loading, error, refetch} = useQuery(GET_MEADOWS)
 
     useEffect(() => {
-        // This effect will run when `triggerRefetch` changes.
         refetch();
     }, [triggerRefetch, refetch]);
 
@@ -30,7 +29,7 @@ export const Meadows = ({triggerRefetch}: ChildProps) => {
     const meadows: Meadow[] = data.meadows;
 
 
-    return (<div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-5 gap-2">
+    return (<div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-2">
         {meadows.map((meadow, meadowIndex) => (
             <div className=" border-gray-300 rounded-xl border bg-owc-warm-orange p-8 m-1 w-full" key={meadow.id}>
                 <a href={`/meadows/${meadow.id}`}

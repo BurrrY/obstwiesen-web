@@ -9,6 +9,12 @@ const nextConfig = {
                 pathname: '/assets/**',
             },
             {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '18080',
+                pathname: '/assets/**',
+            },
+            {
                 protocol: 'https',
                 hostname: 'obstapi.bury.link',
                 port: '443',
