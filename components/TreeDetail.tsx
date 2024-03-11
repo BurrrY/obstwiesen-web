@@ -8,6 +8,7 @@ import {NewEventForm} from "@/components/EventAdd";
 import {Maybe} from "@graphql-tools/utils";
 import Image from 'next/image';
 import {ImageLoader} from "@/components/ImageLoader";
+import {NewImageForm} from "@/components/ImageAdd";
 
 
 interface TreeDetailProps {
@@ -99,12 +100,28 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
         <div className="container mx-auto">
             <div className="flex flex-col lg:flex-row flex-wrap py-4">
                 <aside className="lg:w-1/3 px-2">
-                    <div className="sticky top-0 p-4 w-full">
+                    <div className="top-0 p-4 w-full bg-owc-soft-coral-light p-4 rounded rounded-3xl">
                         <h1
                             className="block font-sans text-4xl mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
                             {tree.name}
                         </h1>
+
+
+                        <Image src={`${tree.banner?.path}`}
+                               className="w-full"
+                               loader={ImageLoader} alt="Description"
+                               sizes="100vw"
+
+                               width={70}
+                               height={45}
+                               style={{
+                                   width: '100%',
+                                   height: 'auto',
+                               }}
+                        />
+
                         <NewEventForm parent_id={tree.id} onFormSubmit={() => refetch()}/>
+                        <NewImageForm parentID={tree.id} onFormSubmit={() => refetch()}/>
                     </div>
                 </aside>
 

@@ -46,7 +46,7 @@ export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
     };
 
     return (
-        <div className="bg-owc-soft-coral-light justify-center  rounded rounded-3xl">
+        <div className="justify-center ">
 
             <form action={createFileMessage} className="flex flex-col gap-y-2 items-center p-3">
                 <p className="block lg:text-2xl text-lg font-normal text-gray-500">
@@ -55,7 +55,7 @@ export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
                 <OwcTextInput name="title" label="Title" required={true}/>
                 <OwcDateInput name="timestamp" label="Timestamp" defaultValue={dateTime} required={true}/>
                 <OwcTextarea name="desc" label="Description"/>
-                <OwcFileInput name="file" label="Images" onChange={handleFileChange}/>
+                <OwcFileInput name="file" label="Images" onChange={handleFileChange} multiple={true}/>
                 <OwcSubmitButton text="Create"/>
             </form>
         </div>

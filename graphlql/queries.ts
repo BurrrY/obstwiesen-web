@@ -12,6 +12,10 @@ export const GET_MEADOW = gql`query Meadow($id: ID!) {
                        trees {
                             id
                             name
+                            banner {
+                                  parentID
+                                  path
+                              }
                         }
                   }
               }
@@ -22,6 +26,10 @@ export const GET_TREE = gql`query Tree($id: ID!) {
     tree(tree_id: $id) {
         id
         name
+        banner {
+              parentID
+              path
+          }
         events {
             id
             title

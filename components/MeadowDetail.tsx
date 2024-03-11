@@ -66,7 +66,7 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
 
                     <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mb-10 w-full" >
                         {meadow.trees.map((tree, meadowIndex) => (
-                            <OwcLinkCard href={`/meadows/${meadow.id}/trees/${tree.id}`} key={tree.id} title= {tree.name} content={``}/>
+                            <OwcLinkCard href={`/meadows/${meadow.id}/trees/${tree.id}`} key={tree.id} title= {tree.name} content={``} banner={tree.banner}/>
                         ))}
                     </div>
 

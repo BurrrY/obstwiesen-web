@@ -126,6 +126,7 @@ export type QueryTreesArgs = {
 
 export type Tree = {
   __typename?: 'Tree';
+  banner?: Maybe<File>;
   events?: Maybe<Array<Event>>;
   id: Scalars['ID']['output'];
   lang?: Maybe<Scalars['Float']['output']>;
