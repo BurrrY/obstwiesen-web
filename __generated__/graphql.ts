@@ -35,6 +35,7 @@ export type File = {
 
 export type Meadow = {
   __typename?: 'Meadow';
+  banner?: Maybe<File>;
   events?: Maybe<Array<Event>>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];

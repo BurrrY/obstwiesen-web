@@ -5,6 +5,10 @@ export const GET_MEADOW = gql`query Meadow($id: ID!) {
                   meadow (meadow_id: $id) {
                       id
                       name
+                      banner {
+                            parentID
+                            path
+                        }
                        trees {
                             id
                             name
@@ -40,6 +44,10 @@ query Meadows {
       trees {
           id
       }
+      banner {
+            parentID
+            path
+        }
       id
       name
   }
@@ -61,8 +69,8 @@ mutation MultipleUpload($parentID: ID!, $files: [Upload!]!) {
         parentID: $parentID
         files: $files
     ) {
-      id
-      name
+        parentID
+        path
     }
 }
 `;
@@ -73,8 +81,8 @@ mutation SingleUpload($parentID: ID!, $file: Upload!) {
         parentID: $parentID
         file: $file
     ) {
-      id
-      name
+        parentID
+        path
     }
 }
 `;

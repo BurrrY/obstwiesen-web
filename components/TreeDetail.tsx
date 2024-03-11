@@ -7,6 +7,7 @@ import { GET_TREE} from "@/graphlql/queries";
 import {NewEventForm} from "@/components/EventAdd";
 import {Maybe} from "@graphql-tools/utils";
 import Image from 'next/image';
+import {ImageLoader} from "@/components/ImageLoader";
 
 
 interface TreeDetailProps {
@@ -16,15 +17,7 @@ interface TreeDetailProps {
 
 //const EventImage = (src: Maybe<Array<File>>) => {
 
-interface ImageLoaderProps {
-    src: string;
-    width: number;
-    quality?: number;
-}
 
-const imageLoader = ({ src, width, quality }: ImageLoaderProps): string => {
-    return `${src}?w=${width}`;
-};
 
 function EventImage(props: { data: Maybe<Array<File>> | undefined }) {
 
@@ -40,7 +33,7 @@ function EventImage(props: { data: Maybe<Array<File>> | undefined }) {
                      key={file.path}>
                     <Image src={`${file.path}`}
                            className="w-full"
-                           loader={imageLoader} alt="Description"
+                           loader={ImageLoader} alt="Description"
                            sizes="100vw"
 
                            width={70}

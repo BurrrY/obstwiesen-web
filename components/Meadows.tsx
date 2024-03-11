@@ -29,7 +29,7 @@ export const Meadows = ({triggerRefetch}: ChildProps) => {
 
     return (<div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-4 w-full">
         {meadows.map((meadow, meadowIndex) => (
-            <OwcLinkCard href={`/meadows/${meadow.id}`} key={meadow.id} title={meadow.name} content={`${meadow.trees.length} Trees`} />
+            <OwcLinkCard href={`/meadows/${meadow.id}`} key={meadow.id} title={meadow.name} content={`${meadow.trees.length} Trees`} banner={meadow.banner} />
         ))}
     </div>);
 };

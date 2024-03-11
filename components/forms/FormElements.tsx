@@ -53,17 +53,18 @@ export const OwcSubmitButton = ({text}: OwcSubmitButtonProps) => {
 interface OwcFileInputProps {
     name: string,
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    label: string
+    label: string,
+    multiple: boolean
 }
 
-export const OwcFileInput = ({ name, onChange, label }: OwcFileInputProps) => {
+export const OwcFileInput = ({ name, onChange, label, multiple }: OwcFileInputProps) => {
     return (
         <div className="relative h-11 w-full min-w-[200px]">
             <input placeholder={`${name}`}
                    id={`${name}`}
                    name={`${name}`}
                    type="file"
-                   multiple={true}
+                   multiple={multiple}
                    onChange={onChange}
                    className="peer h-full w-full border-b border-owc-soft-coral-dark bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-gray-700 outline outline-0 transition-all placeholder-shown:border-owc-soft-coral-dark focus:border-gray-500 focus:outline-0 placeholder:opacity-0 focus:placeholder:opacity-100"/>
             <label
