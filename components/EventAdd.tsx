@@ -15,6 +15,7 @@ interface NewEventFormProps {
 
 export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
     const [file, setFile] = useState(null);
+    const [uploading, setUploading] = useState<boolean>(false);
 
     const [addEvents] = useMutation(CREATE_EVENT)
 
@@ -29,6 +30,7 @@ export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
 
 
     const createFileMessage = async (formData: FormData) => {
+        setUploading(true)
         console.log(formData)
         let title = formData.get('title') as string;
         let timestamp = formData.get('timestamp') as string;
@@ -43,21 +45,37 @@ export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
             }
         });
         onFormSubmit()
+        setUploading(false)
     };
 
-    return (
-        <div className="justify-center ">
+    if (uploading) {
 
-            <form action={createFileMessage} className="flex flex-col gap-y-2 items-center p-3">
-                <p className="block lg:text-2xl text-lg font-normal text-gray-500">
-                    new event
-                </p>
-                <OwcTextInput name="title" label="Title" required={true}/>
-                <OwcDateInput name="timestamp" label="Timestamp" defaultValue={dateTime} required={true}/>
-                <OwcTextarea name="desc" label="Description"/>
-                <OwcFileInput name="file" label="Images" onChange={handleFileChange} multiple={true}/>
-                <OwcSubmitButton text="Create"/>
-            </form>
-        </div>
-    );
+        return (
+            <div>
+                <hr/>
+                <div className="flex flex-col gap-y-2 items-center p-3">
+                    <p className="block lg:text-2xl text-lg font-normal text-gray-500">
+                        loading...
+                    </p>
+                </div>
+            </div>
+        );
+
+    } else {
+        return (
+            <div className="justify-center ">
+
+                <form action={createFileMessage} className="flex flex-col gap-y-2 items-center p-3">
+                    <p className="block lg:text-2xl text-lg font-normal text-gray-500">
+                        new event
+                    </p>
+                    <OwcTextInput name="title" label="Title" required={true}/>
+                    <OwcDateInput name="timestamp" label="Timestamp" defaultValue={dateTime} required={true}/>
+                    <OwcTextarea name="desc" label="Description"/>
+                    <OwcFileInput name="file" label="Images" onChange={handleFileChange} multiple={true}/>
+                    <OwcSubmitButton text="Create" disabled={false}/>
+                </form>
+            </div>
+        );
+    }
 }

@@ -1,10 +1,11 @@
 'use client';
 
 
-import {CREATE_EVENT, MULTI_UPLOAD_FILES, UPLOAD_FILE} from "@/graphlql/queries";
+import {UPLOAD_FILE} from "@/graphlql/queries";
 import {useMutation} from "@apollo/client";
-import {useState} from "react";
-import {OwcSubmitButton, OwcTextInput, OwcDateInput, OwcTextarea, OwcFileInput} from "@/components/forms/FormElements";
+import {useEffect, useState} from "react";
+import {OwcSubmitButton, OwcFileInput} from "@/components/forms/FormElements";
+
 
 
 interface NewImageFormProps {
@@ -13,9 +14,10 @@ interface NewImageFormProps {
 }
 
 
-export const NewImageForm = ({parentID,  onFormSubmit}: NewImageFormProps) => {
+export const NewImageForm = ({parentID, onFormSubmit}: NewImageFormProps) => {
 
     const [file, setFile] = useState(null);
+    const [uploading, setUploading] = useState<boolean>(false);
 
     const [addFile] = useMutation(UPLOAD_FILE)
 
@@ -27,6 +29,8 @@ export const NewImageForm = ({parentID,  onFormSubmit}: NewImageFormProps) => {
     };
 
     const createFileMessage = async (formData: FormData) => {
+        setUploading(true)
+
         const frmVars = {
             parentID: parentID,
             file: file
@@ -36,19 +40,40 @@ export const NewImageForm = ({parentID,  onFormSubmit}: NewImageFormProps) => {
         await addFile({
             variables: frmVars
         });
+
         onFormSubmit()
+        setUploading(false)
     };
 
-    return (
-        <div>
-            <hr />
-            <form action={createFileMessage} className="flex flex-col gap-y-2 items-center p-3">
-                <p className="block lg:text-2xl text-lg font-normal text-gray-500">
-                    add image
-                </p>
-                <OwcFileInput name="file" label="Images" onChange={handleFileChange} multiple={false}/>
-                <OwcSubmitButton text="Add"/>
-            </form>
-        </div>
-    );
+
+    if (uploading) {
+        console.log("uploading: in progress")
+        return (
+            <div>
+                <hr/>
+                <div className="flex flex-col gap-y-2 items-center p-3">
+                    <p className="block lg:text-2xl text-lg font-normal text-gray-500">
+                        loading...
+                    </p>
+                </div>
+            </div>
+        );
+    } else {
+        console.log("uploading: is done")
+
+        return (
+            <div>
+                <hr/>
+                <form action={createFileMessage} className="flex flex-col gap-y-2 items-center p-3">
+                    <p className="block lg:text-2xl text-lg font-normal text-gray-500">
+                        add image
+                    </p>
+                    <OwcFileInput name="file" label="Images" onChange={handleFileChange} multiple={false}/>
+                    <OwcSubmitButton text="Add" disabled={false}/>
+                </form>
+            </div>
+        );
+    }
+
+
 }
