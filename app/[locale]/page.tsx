@@ -6,7 +6,9 @@ import {NewMeadowForm} from "@/components/MeadowAdd";
 import {Meadows} from "@/components/Meadows";
 import {useState} from "react";
 
+import { useI18n, useScopedI18n } from '../../locales/client'
 export default function Page() {
+    const t = useI18n()
 
     const [triggerRefetch, setTriggerRefetch] = useState(false);
     const handleReload = () => {
@@ -22,7 +24,7 @@ export default function Page() {
                     <div className="sticky top-0 p-4 w-full">
                         <h1
                             className="block font-sans text-4xl mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
-                            Hello!
+                            {t('hello')}
                         </h1>
                         <NewMeadowForm onFormSubmit={handleReload} />
                     </div>
