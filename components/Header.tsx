@@ -9,7 +9,7 @@ return (
                 <div className="flex-shrink-0">
                     <a href="/" title=""
                        className="flex font-sans text-5xl antialiased font-semibold leading-tight tracking-normal">
-                        Obstwiese
+                        Obstwiesen
                     </a>
                 </div>
 
