@@ -20,7 +20,7 @@ export function OwcLinkCard({ href, title, content, banner }: OwcLinkCardProps) 
            href={href}>
 
             {hasImage ? (
-                <div className="bg-white overflow-hidden h-40">
+                <div className="bg-white overflow-hidden h-40 relative">
                     <Image src={url}
                            className="w-full"
                            loader={ImageLoader} alt="Banner Image"
@@ -31,6 +31,12 @@ export function OwcLinkCard({ href, title, content, banner }: OwcLinkCardProps) 
                            style={{
                                width: '100%',
                                height: 'auto',
+                               position: 'absolute',
+                               top: '50%',
+                               left: '50%',
+                               transform: 'translate(-50%, -50%)',
+                               minWidth: '100%',
+                               minHeight: '100%',
                            }}
                     />
                     </div>
