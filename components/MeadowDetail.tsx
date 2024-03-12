@@ -33,12 +33,17 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
 
     const meadow: Meadow = data.meadow as Meadow;
 
+    let mapCenter: [number, number] =[0,0]
     let markers: [[number, number], string, string][] = []
     for (const myTree of meadow.trees) {
         if (myTree.lat && myTree.lang) {
             markers.push([[myTree.lat, myTree.lang], myTree.name, `/meadows/${meadow.id}/trees/${myTree.id}` ])
+            mapCenter=[myTree.lat, myTree.lang];
         }
     }
+
+
+
 
     console.log("Markers:", markers)
 
@@ -90,7 +95,7 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
                     </h2>
 
                     <div className="w-full border mb-8">
-                        <MapComponent center={markers[0][0]} markers={markers}/>
+                        <MapComponent center={mapCenter} markers={markers}/>
                     </div>
 
                 </main>
