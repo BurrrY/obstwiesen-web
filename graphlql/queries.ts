@@ -26,6 +26,8 @@ export const GET_TREE = gql`query Tree($id: ID!) {
     tree(tree_id: $id) {
         id
         name
+        lat
+        lang
         banner {
               parentID
               path
