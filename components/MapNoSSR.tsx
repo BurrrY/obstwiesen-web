@@ -38,7 +38,7 @@ function DraggableMarker({ initial, onPosChanged }: DraggableMarkerProps) {
                 }
             },
         }),
-        [],
+        [onPosChanged],
     )
 
 
@@ -64,7 +64,7 @@ const MapNoSSR = ({ center, markers, draggableMarker, onPosChanged }: MapCompone
                 />
 
                 {markers?.map((marker, idx) => (
-                    <CircleMarker center={marker[0]} radius={5}>
+                    <CircleMarker center={marker[0]} radius={5} key={idx}>
                         <Popup minWidth={90}>
                             <span>
                                 <a href={marker[2]}>{marker[1]}</a>
