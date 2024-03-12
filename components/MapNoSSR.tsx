@@ -23,7 +23,7 @@ interface DraggableMarkerProps {
 
 function DraggableMarker({ initial, onPosChanged }: DraggableMarkerProps) {
 
-    const markerRef = useRef(null)
+    const markerRef = useRef<L.Marker>(null)
     const [position, setPosition] = useState(initial)
     const eventHandlers = useMemo(
         () => ({
