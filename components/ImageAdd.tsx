@@ -5,6 +5,7 @@ import {UPLOAD_FILE} from "@/graphlql/queries";
 import {useMutation} from "@apollo/client";
 import {useEffect, useState} from "react";
 import {OwcSubmitButton, OwcFileInput} from "@/components/forms/FormElements";
+import {useI18n} from "@/locales/client";
 
 
 
@@ -15,6 +16,7 @@ interface NewImageFormProps {
 
 
 export const NewImageForm = ({parentID, onFormSubmit}: NewImageFormProps) => {
+    const t = useI18n()
 
     const [file, setFile] = useState(null);
     const [uploading, setUploading] = useState<boolean>(false);
@@ -53,7 +55,7 @@ export const NewImageForm = ({parentID, onFormSubmit}: NewImageFormProps) => {
                 <hr/>
                 <div className="flex flex-col gap-y-2 items-center p-3">
                     <p className="block lg:text-2xl text-lg font-normal text-gray-500">
-                        loading...
+                        {t('Loading...')}
                     </p>
                 </div>
             </div>
@@ -66,10 +68,10 @@ export const NewImageForm = ({parentID, onFormSubmit}: NewImageFormProps) => {
                 <hr/>
                 <form action={createFileMessage} className="flex flex-col gap-y-2 items-center p-3">
                     <p className="block lg:text-2xl text-lg font-normal text-gray-500">
-                        add image
+                        {t('new image')}
                     </p>
-                    <OwcFileInput name="file" label="Images" onChange={handleFileChange} multiple={false}/>
-                    <OwcSubmitButton text="Add" disabled={false}/>
+                    <OwcFileInput name="file" label={t('image')} onChange={handleFileChange} multiple={false}/>
+                    <OwcSubmitButton text={t('add')} disabled={false}/>
                 </form>
             </div>
         );

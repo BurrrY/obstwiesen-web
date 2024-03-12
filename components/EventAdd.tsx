@@ -5,6 +5,7 @@ import {CREATE_EVENT, MULTI_UPLOAD_FILES, UPLOAD_FILE} from "@/graphlql/queries"
 import {useMutation} from "@apollo/client";
 import {useState} from "react";
 import {OwcSubmitButton, OwcTextInput, OwcDateInput, OwcTextarea, OwcFileInput} from "@/components/forms/FormElements";
+import {useI18n} from "@/locales/client";
 
 
 interface NewEventFormProps {
@@ -14,6 +15,7 @@ interface NewEventFormProps {
 
 
 export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
+    const t = useI18n()
     const [file, setFile] = useState(null);
     const [uploading, setUploading] = useState<boolean>(false);
 
@@ -55,7 +57,7 @@ export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
                 <hr/>
                 <div className="flex flex-col gap-y-2 items-center p-3">
                     <p className="block lg:text-2xl text-lg font-normal text-gray-500">
-                        loading...
+                        {t('Loading...')}
                     </p>
                 </div>
             </div>
@@ -67,13 +69,13 @@ export const NewEventForm = ({parent_id,  onFormSubmit}: NewEventFormProps) => {
 
                 <form action={createFileMessage} className="flex flex-col gap-y-2 items-center p-3">
                     <p className="block lg:text-2xl text-lg font-normal text-gray-500">
-                        new event
+                        {t('new event')}
                     </p>
-                    <OwcTextInput name="title" label="Title" required={true}/>
-                    <OwcDateInput name="timestamp" label="Timestamp" defaultValue={dateTime} required={true}/>
-                    <OwcTextarea name="desc" label="Description"/>
-                    <OwcFileInput name="file" label="Images" onChange={handleFileChange} multiple={true}/>
-                    <OwcSubmitButton text="Create" disabled={false}/>
+                    <OwcTextInput name="title" label={t('Title')} required={true}/>
+                    <OwcDateInput name="timestamp" label={t('Timestamp')} defaultValue={dateTime} required={true}/>
+                    <OwcTextarea name="desc" label={t('Descrption')}/>
+                    <OwcFileInput name="file" label={t('Images')} onChange={handleFileChange} multiple={true}/>
+                    <OwcSubmitButton text={t('Create')} disabled={false}/>
                 </form>
             </div>
         );

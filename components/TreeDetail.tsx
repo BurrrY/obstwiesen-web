@@ -9,6 +9,7 @@ import {Maybe} from "@graphql-tools/utils";
 import Image from 'next/image';
 import {ImageLoader} from "@/components/ImageLoader";
 import {NewImageForm} from "@/components/ImageAdd";
+import {useI18n} from "@/locales/client";
 
 
 interface TreeDetailProps {
@@ -21,10 +22,11 @@ interface TreeDetailProps {
 
 
 function EventImage(props: { data: Maybe<Array<File>> | undefined }) {
+    const t = useI18n()
 
     let fileList = props.data
     if (!fileList ||fileList.length == 0) {
-        return (<p>No files.</p>)
+        return (<p>{ t('No files') }</p>)
     }
 
     return (
@@ -51,10 +53,11 @@ function EventImage(props: { data: Maybe<Array<File>> | undefined }) {
 }
 
 function EventElem(props: { data: Maybe<Array<Event>> | undefined }) {
+    const t = useI18n()
 
     let eventList = props.data
     if (!eventList) {
-        return (<p>No events.</p>)
+        return (<p>{ t('No files') }</p>)
     }
 
     return (
@@ -83,15 +86,16 @@ function EventElem(props: { data: Maybe<Array<Event>> | undefined }) {
 }
 
 export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
+    const t = useI18n()
     const {data, loading, error, refetch} = useQuery(GET_TREE, {
         variables: {id: treeid},
     })
 
 
-    if (loading) return <div>Loading...</div>
+    if (loading) return <div>{t('Loading...')}</div>
     if (error) {
         console.log("error: ", error)
-        return <div>error</div>
+        return <div>{t('error loading trees')}</div>
     }
 
     const tree: Tree = data.tree;
@@ -128,7 +132,7 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
                 <main role="main" className="lg:w-2/3 p-3 px-4 bg-owc-deep-green rounded-3xl flex flex-col items-center">
                     <h2
                         className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
-                        Events
+                        {t('events')}
                     </h2>
                     <EventElem data={tree.events}/>
                 </main>

@@ -4,6 +4,7 @@
 import {CREATE_MEADOW} from "@/graphlql/queries";
 import {useMutation} from "@apollo/client";
 import {OwcSubmitButton, OwcTextInput} from "@/components/forms/FormElements";
+import {useI18n} from "@/locales/client";
 
 
 // @ts-ignore
@@ -12,6 +13,7 @@ interface NewMeadowFormProps {
 }
 
 export const NewMeadowForm = ({onFormSubmit}: NewMeadowFormProps) => {
+    const t = useI18n()
     let  newMeadowName  = "";
     const [addMeadows] = useMutation(CREATE_MEADOW, {
         variables: { newMeadowName },
@@ -27,10 +29,10 @@ export const NewMeadowForm = ({onFormSubmit}: NewMeadowFormProps) => {
         <div className="bg-owc-soft-coral-light p-4 rounded rounded-3xl">
             <form action={createMessage} className="flex flex-col lg:gap-x-2 gap-y-2 items-center">
                 <p className="block lg:text-2xl text-lg font-normal text-gray-500">
-                    new meadow
+                    { t('new meadow') }
                 </p>
                 <OwcTextInput  name="meadowName" label="Name" />
-                <OwcSubmitButton text="Create" />
+                <OwcSubmitButton text={t('Create') } disabled={false} />
             </form>
         </div>
     );

@@ -4,6 +4,7 @@
 import {CREATE_TREE} from "@/graphlql/queries";
 import {useMutation} from "@apollo/client";
 import {OwcSubmitButton, OwcTextInput} from "@/components/forms/FormElements";
+import {useI18n} from "@/locales/client";
 
 
 interface NewTreeFormProps {
@@ -12,6 +13,7 @@ interface NewTreeFormProps {
 }
 
 export const NewTreeForm = ({meadowid,  onFormSubmit }: NewTreeFormProps) => {
+    const t = useI18n()
     let  newTreeName  = "";
     let  parent_meadow  = "";
     const [addTrees] = useMutation(CREATE_TREE, {
@@ -29,11 +31,11 @@ export const NewTreeForm = ({meadowid,  onFormSubmit }: NewTreeFormProps) => {
         <div  className="">
             <form action={createMessage} className="flex flex-col lg:gap-x-2 gap-y-2 items-center lg:p-3">
                 <p className="block lg:text-2xl text-lg font-normal text-gray-500">
-                    new tree
+                    { t('new tree') }
                 </p>
 
                 <OwcTextInput  name="treeName" label="Name" />
-                <OwcSubmitButton text="Create" />
+                <OwcSubmitButton text= {t('Create') }  disabled={false}/>
                 <input type={`hidden`} value={meadowid} name="meadowID"/>
             </form>
         </div>

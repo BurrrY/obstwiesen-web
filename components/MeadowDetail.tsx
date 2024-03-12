@@ -9,6 +9,7 @@ import {OwcLinkCard} from "@/components/LinkCard";
 import {NewImageForm} from "@/components/ImageAdd";
 import {ImageLoader} from "@/components/ImageLoader";
 import Image from "next/image";
+import {useI18n} from "@/locales/client";
 
 
 
@@ -18,6 +19,7 @@ interface MeadowDetailProps {
 
 
 export const MeadowDetail = ({id}: MeadowDetailProps) => {
+    const t = useI18n()
     let meadowID = id
 
     const {data, loading, error, refetch} = useQuery(GET_MEADOW, {
@@ -25,8 +27,8 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
     })
 
 
-    if (loading) return <div>Loading...</div>
-    if (error) return <div>error</div>
+    if (loading) return <div>{ t('Loading...')}</div>
+    if (error) return <div>{ t('error') }</div>
 
     const meadow: Meadow = data.meadow;
 
@@ -61,7 +63,7 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
                 <main role="main" className="flex flex-col items-center lg:w-2/3 pt-3 px-4 bg-owc-deep-green rounded-3xl">
                     <h2
                         className="font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit  mb-6">
-                        Trees
+                        { t('Trees') }
                     </h2>
 
                     <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mb-10 w-full" >
