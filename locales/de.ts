@@ -25,4 +25,7 @@ export default {
     'No files': 'Keine Bilder',
     'Loading...': 'Lädt...',
     'error loading trees': 'Fehler beim Laden',
+
+    'reset': 'Reset',
+    'save': 'Speichern',
 } as const

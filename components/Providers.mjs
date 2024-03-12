@@ -7,7 +7,7 @@ import { env } from 'next-runtime-env';
 
 export const Providers = ({children}) => {
 
-    console.log("NEXT_PUBLIC_GQL_HOST: ", process.env.NEXT_PUBLIC_GQL_HOST)
+    //console.log("NEXT_PUBLIC_GQL_HOST: ", process.env.NEXT_PUBLIC_GQL_HOST)
 
     const client = new ApolloClient({
            link: createUploadLink(

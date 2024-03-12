@@ -12,6 +12,7 @@ import {ReactNode} from "react";
   return (
       <html lang="en">
       <head>
+
           <PublicEnvScript/>
       </head>
       <body>
@@ -23,4 +24,4 @@ import {ReactNode} from "react";
       </body>
       </html>
   );
-}
+    }

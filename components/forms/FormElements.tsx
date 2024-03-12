@@ -10,6 +10,11 @@ interface OwcDateInputProps {
 }
 
 
+interface OwcSmallButtonProps {
+    text: string,
+    onClick: () => void
+}
+
 interface OwcSubmitButtonProps {
     text: string,
     disabled: boolean | false
@@ -40,6 +45,16 @@ export const OwcDateInput = ({defaultValue, name, label, required}: OwcDateInput
 }
 
 
+export const OwcSmallButton = ({ text, onClick }: OwcSmallButtonProps) => {
+    return (
+        <div className="w-full ">
+            <button onClick={onClick}
+                    className="text-owc-soft-coral-light select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:bg-gray-400 disabled:pointer-events-none py-3 px-6 bg-owc-deep-green shadow-md shadow-owc-deep-green/10 hover:shadow-lg hover:shadow-owc-deep-green/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-full">
+                {text}
+            </button>
+        </div>
+    );
+}
 export const OwcSubmitButton = ({ text, disabled }: OwcSubmitButtonProps) => {
     return (
         <div className="w-full ">

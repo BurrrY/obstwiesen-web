@@ -49,7 +49,7 @@ export const NewImageForm = ({parentID, onFormSubmit}: NewImageFormProps) => {
 
 
     if (uploading) {
-        console.log("uploading: in progress")
+        //console.log("uploading: in progress")
         return (
             <div>
                 <hr/>
@@ -61,7 +61,7 @@ export const NewImageForm = ({parentID, onFormSubmit}: NewImageFormProps) => {
             </div>
         );
     } else {
-        console.log("uploading: is done")
+        //console.log("uploading: is done")
 
         return (
             <div>

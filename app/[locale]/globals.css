@@ -13,3 +13,8 @@ body {
   color: rgb(var(--foreground-rgb));
   background: #F3E9D2;
 }
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}

@@ -1,7 +1,7 @@
 "use client";
 
 
-import {Meadow} from "@/__generated__/graphql";
+import {Meadow, Tree} from "@/__generated__/graphql";
 import {useQuery} from "@apollo/client";
 import { GET_MEADOW} from "@/graphlql/queries";
 import {NewTreeForm} from "@/components/TreeAdd";
@@ -10,6 +10,7 @@ import {NewImageForm} from "@/components/ImageAdd";
 import {ImageLoader} from "@/components/ImageLoader";
 import Image from "next/image";
 import {useI18n} from "@/locales/client";
+import MapComponent from "@/components/map";
 
 
 
@@ -30,7 +31,16 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
     if (loading) return <div>{ t('Loading...')}</div>
     if (error) return <div>{ t('error') }</div>
 
-    const meadow: Meadow = data.meadow;
+    const meadow: Meadow = data.meadow as Meadow;
+
+    let markers: [[number, number], string, string][] = []
+    for (const myTree of meadow.trees) {
+        if (myTree.lat && myTree.lang) {
+            markers.push([[myTree.lat, myTree.lang], myTree.name, `/meadows/${meadow.id}/trees/${myTree.id}` ])
+        }
+    }
+
+    console.log("Markers:", markers)
 
 
     return (
@@ -60,21 +70,32 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
                         <NewImageForm parentID={meadow.id} onFormSubmit={() => refetch()}/>
                     </div>
                 </aside>
-                <main role="main" className="flex flex-col items-center lg:w-2/3 pt-3 px-4 bg-owc-deep-green rounded-3xl">
+                <main role="main"
+                      className="flex flex-col items-center lg:w-2/3 pt-3 px-4 bg-owc-deep-green rounded-3xl relative">
                     <h2
                         className="font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit  mb-6">
-                        { t('Trees') }
+                        {t('Trees')}
                     </h2>
 
-                    <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mb-10 w-full" >
+                    <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mb-10 w-full border">
                         {meadow.trees.map((tree, meadowIndex) => (
-                            <OwcLinkCard href={`/meadows/${meadow.id}/trees/${tree.id}`} key={tree.id} title= {tree.name} content={``} banner={tree.banner}/>
+                            <OwcLinkCard href={`/meadows/${meadow.id}/trees/${tree.id}`} key={tree.id} title={tree.name}
+                                         content={``} banner={tree.banner}/>
                         ))}
+                    </div>
+
+                    <h2
+                        className="font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit mb-6">
+                        {t('Map')}
+                    </h2>
+
+                    <div className="w-full border mb-8">
+                        <MapComponent center={markers[0][0]} markers={markers}/>
                     </div>
 
                 </main>
             </div>
         </div>
 
-    );
+);
 };

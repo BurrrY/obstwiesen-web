@@ -2,14 +2,18 @@
 
 
 import {Tree, Event, File} from "@/__generated__/graphql";
-import {useQuery} from "@apollo/client";
-import { GET_TREE} from "@/graphlql/queries";
+import {useMutation, useQuery} from "@apollo/client";
+import {GET_TREE, UPDATE_TREE} from "@/graphlql/queries";
 import {NewEventForm} from "@/components/EventAdd";
 import {Maybe} from "@graphql-tools/utils";
 import Image from 'next/image';
 import {ImageLoader} from "@/components/ImageLoader";
 import {NewImageForm} from "@/components/ImageAdd";
 import {useI18n} from "@/locales/client";
+import MapComponent from "@/components/map";
+import {OwcSmallButton, OwcSubmitButton} from "@/components/forms/FormElements";
+import {useState} from "react";
+import {number} from "prop-types";
 
 
 interface TreeDetailProps {
@@ -86,12 +90,20 @@ function EventElem(props: { data: Maybe<Array<Event>> | undefined }) {
 }
 
 export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
+    const [position, setPosition] = useState<[number, number]>([0,0])
+    const [newPosition, setNewPosition] = useState<[number, number]>()
     const t = useI18n()
+
+    const [updateTree] = useMutation(UPDATE_TREE)
+
+
     const {data, loading, error, refetch} = useQuery(GET_TREE, {
         variables: {id: treeid},
     })
 
 
+
+//  <Map center={[tree.lat, tree.lang]} markers={[[tree.lat, tree.lang]]} />
     if (loading) return <div>{t('Loading...')}</div>
     if (error) {
         console.log("error: ", error)
@@ -100,6 +112,45 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
 
     const tree: Tree = data.tree;
 
+    if (tree.lang && tree.lang) {
+        //setPosition([tree.lat as number, tree.lang as number])
+        //console.log("Init Pos:", position)
+    }
+
+    function markerReset() {
+
+    }
+
+    const markerStore = async () => {
+        console.log("store newLatLang:", newPosition)
+        if (!newPosition) {return;}
+
+        const data = {
+            id: tree.id,
+            lat: newPosition[0],
+            lang: newPosition[1],
+            name: tree.name,
+        }
+        console.log("store updateTree:", data)
+
+        await updateTree({
+            variables: data
+        });
+        refetch();
+    };
+
+
+
+    function PosChanged(newLatLang: [number, number]) {
+        console.log("newLatLang PosChanged:", newLatLang)
+        setNewPosition(newLatLang)
+    }
+
+    let center: [number, number]= [0,0]
+    if (tree.lat && tree.lang) {
+        center = [tree.lat, tree.lang]
+    }
+    
     return (
         <div className="container mx-auto">
             <div className="flex flex-col lg:flex-row flex-wrap py-4">
@@ -124,12 +175,23 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
                                }}
                         />
 
+                        <div>
+                            <MapComponent center={center} draggableMarker={center}
+                                          onPosChanged={PosChanged}/>
+                            <div className="flex flex-row">
+                                <OwcSmallButton onClick={markerReset} text={t('reset')}/>
+                                <OwcSmallButton onClick={markerStore} text={t('save')}/>
+                            </div>
+                        </div>
+
+
                         <NewEventForm parent_id={tree.id} onFormSubmit={() => refetch()}/>
                         <NewImageForm parentID={tree.id} onFormSubmit={() => refetch()}/>
                     </div>
                 </aside>
 
-                <main role="main" className="lg:w-2/3 p-3 px-4 bg-owc-deep-green rounded-3xl flex flex-col items-center">
+                <main role="main"
+                      className="lg:w-2/3 p-3 px-4 bg-owc-deep-green rounded-3xl flex flex-col items-center">
                     <h2
                         className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit">
                         {t('events')}
