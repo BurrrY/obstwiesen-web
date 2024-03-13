@@ -5,6 +5,7 @@ import React from "react";
 
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
+import {env} from "next-runtime-env";
 
 
 const MapComponentNoSSR = dynamic(() => import('./MapNoSSR'), {
@@ -26,5 +27,11 @@ const MapComponent = ({ center, markers, draggableMarker, onPosChanged }: MapCom
         </div>
     );
 };
+
+export function FallbackCoords(): [number, number] {
+    const lat: number = parseInt(env('NEXT_PUBLIC_LAT') || "0");
+    const lang: number = parseInt(env('NEXT_PUBLIC_LANG') || "0");
+    return [lat, lang];
+}
 
 export default MapComponent;

@@ -10,13 +10,15 @@ import {NewImageForm} from "@/components/ImageAdd";
 import {ImageLoader} from "@/components/ImageLoader";
 import Image from "next/image";
 import {useI18n} from "@/locales/client";
-import MapComponent from "@/components/map";
+import MapComponent, {FallbackCoords} from "@/components/map";
 
 
 
 interface MeadowDetailProps {
     id: string
 }
+
+
 
 
 export const MeadowDetail = ({id}: MeadowDetailProps) => {
@@ -33,7 +35,7 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
 
     const meadow: Meadow = data.meadow as Meadow;
 
-    let mapCenter: [number, number] =[0,0]
+    let mapCenter: [number, number] =FallbackCoords()
     let markers: [[number, number], string, string][] = []
     for (const myTree of meadow.trees) {
         if (myTree.lat && myTree.lang) {

@@ -1,6 +1,6 @@
 
 // MapNoSSR.tsx
-import {CircleMarker, MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
+import {CircleMarker, LayersControl, MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, {useCallback, useMemo, useRef, useState} from "react";
 import "leaflet-defaulticon-compatibility";
@@ -58,10 +58,19 @@ const MapNoSSR = ({ center, markers, draggableMarker, onPosChanged }: MapCompone
 
     return (
             <MapContainer center={center} zoom={18} scrollWheelZoom={false} className="" style={{height: '400px'}}>
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
+                <LayersControl>
+                        <TileLayer
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        />
+
+                        <TileLayer
+                            url='https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
+                            maxZoom= {20}
+                            subdomains={['mt1','mt2','mt3']}
+                        />
+
+                </LayersControl>
 
                 {markers?.map((marker, idx) => (
                     <CircleMarker center={marker[0]} radius={5} key={idx}>

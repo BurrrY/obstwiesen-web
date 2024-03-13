@@ -10,7 +10,7 @@ import Image from 'next/image';
 import {ImageLoader} from "@/components/ImageLoader";
 import {NewImageForm} from "@/components/ImageAdd";
 import {useI18n} from "@/locales/client";
-import MapComponent from "@/components/map";
+import MapComponent, {FallbackCoords} from "@/components/map";
 import {OwcSmallButton, OwcSubmitButton} from "@/components/forms/FormElements";
 import {useState} from "react";
 import {number} from "prop-types";
@@ -146,7 +146,7 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
         setNewPosition(newLatLang)
     }
 
-    let center: [number, number]= [0,0]
+    let center: [number, number]= FallbackCoords()
     if (tree.lat && tree.lang) {
         center = [tree.lat, tree.lang]
     }
