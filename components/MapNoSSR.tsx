@@ -85,16 +85,25 @@ const MapNoSSR = ({ center, markers, draggableMarker, onPosChanged }: MapCompone
 
                 </LayersControl>
 
-                <MarkerClusterGroup>
-                {markers?.map((marker, idx) => (
-                    <CircleMarker center={marker[0]} radius={5} key={idx}>
-                        <Popup minWidth={90}>
-                            <span>
-                                <a href={marker[2]}>{marker[1]}</a>
-                            </span>
-                        </Popup>
-                    </CircleMarker>
-                ))}
+                <MarkerClusterGroup
+                    polygonOptions={{
+                        fillColor: '#ffffff',
+                        color: '#fcada1',
+                        weight: 3,
+                        opacity: 1,
+                        fillOpacity: 0.5,
+                    }}
+                    disableClusteringAtZoom={17}>
+
+                    {markers?.map((marker, idx) => (
+                        <CircleMarker center={marker[0]} radius={5} key={idx}>
+                            <Popup minWidth={90}>
+                                <span>
+                                    <a href={marker[2]}>{marker[1]}</a>
+                                </span>
+                            </Popup>
+                        </CircleMarker>
+                    ))}
                 </MarkerClusterGroup>
 
                 {draggableMarker ?  <DraggableMarker initial={draggableMarker} onPosChanged={onPosChanged} /> : ""}
