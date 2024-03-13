@@ -1,5 +1,7 @@
 'use client';
 
+import MapComponent from "@/components/map";
+
 export const dynamic = "force-dynamic";
 
 import {NewMeadowForm} from "@/components/MeadowAdd";
@@ -30,13 +32,15 @@ export default function Page() {
                     </div>
                 </aside>
 
-                <main role="main" className="lg:w-2/3 p-3 px-4 bg-owc-deep-green rounded-3xl flex flex-col items-center">
+                <main role="main"
+                      className="lg:w-2/3 p-3 px-4 bg-owc-deep-green rounded-3xl flex flex-col items-center">
                     <h2
                         className="block font-sans text-3xl antialiased font-semibold leading-tight tracking-normal text-inherit mb-6">
-                        { t('Meadows') }
+                        {t('Meadows')}
                     </h2>
 
-                    <Meadows triggerRefetch={triggerRefetch}  />
+
+                    <Meadows triggerRefetch={triggerRefetch}/>
                 </main>
             </div>
         </div>

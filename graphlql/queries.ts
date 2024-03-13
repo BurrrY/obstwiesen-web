@@ -77,6 +77,9 @@ query Meadows {
   meadows {
       trees {
           id
+          lat
+          lang
+          name
       }
       banner {
             parentID

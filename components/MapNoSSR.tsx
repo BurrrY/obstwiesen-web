@@ -7,6 +7,7 @@ import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
 import {Icon} from 'leaflet'
+import MarkerClusterGroup from "react-leaflet-cluster";
 
 interface MapComponentProps {
     center: [number, number],
@@ -71,7 +72,7 @@ const MapNoSSR = ({ center, markers, draggableMarker, onPosChanged }: MapCompone
 
 
     return (
-            <MapContainer center={center} zoom={18} scrollWheelZoom={false} className="" style={{height: '400px'}}>
+            <MapContainer center={center} zoom={19} scrollWheelZoom={false} className="" style={{height: '400px'}}>
 
                 <LayersControl>
 
@@ -84,6 +85,7 @@ const MapNoSSR = ({ center, markers, draggableMarker, onPosChanged }: MapCompone
 
                 </LayersControl>
 
+                <MarkerClusterGroup>
                 {markers?.map((marker, idx) => (
                     <CircleMarker center={marker[0]} radius={5} key={idx}>
                         <Popup minWidth={90}>
@@ -93,6 +95,7 @@ const MapNoSSR = ({ center, markers, draggableMarker, onPosChanged }: MapCompone
                         </Popup>
                     </CircleMarker>
                 ))}
+                </MarkerClusterGroup>
 
                 {draggableMarker ?  <DraggableMarker initial={draggableMarker} onPosChanged={onPosChanged} /> : ""}
 
