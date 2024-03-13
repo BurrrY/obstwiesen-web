@@ -51,24 +51,36 @@ function DraggableMarker({ initial, onPosChanged }: DraggableMarkerProps) {
         </Marker>
     )
 }
+/*
 
+
+                    <TileLayer
+                        url='http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png'
+                        maxZoom= {20}
+                        subdomains={['otile1','otile2','otile3','otile4']}
+                    />
+                    <TileLayer
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    />
+
+
+* */
 
 const MapNoSSR = ({ center, markers, draggableMarker, onPosChanged }: MapComponentProps) => {
 
 
     return (
             <MapContainer center={center} zoom={18} scrollWheelZoom={false} className="" style={{height: '400px'}}>
-                <LayersControl>
-                        <TileLayer
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        />
 
-                        <TileLayer
-                            url='https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
-                            maxZoom= {20}
-                            subdomains={['mt1','mt2','mt3']}
-                        />
+                <LayersControl>
+
+                    <TileLayer
+                        url='https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}'
+                        maxZoom= {20}
+                        subdomains={['mt1','mt2','mt3']}
+                    />
+
 
                 </LayersControl>
 

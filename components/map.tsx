@@ -29,8 +29,8 @@ const MapComponent = ({ center, markers, draggableMarker, onPosChanged }: MapCom
 };
 
 export function FallbackCoords(): [number, number] {
-    const lat: number = parseInt(env('NEXT_PUBLIC_LAT') || "0");
-    const lang: number = parseInt(env('NEXT_PUBLIC_LANG') || "0");
+    const lat: number = parseFloat(env('NEXT_PUBLIC_LAT') || "0");
+    const lang: number = parseFloat(env('NEXT_PUBLIC_LANG') || "0");
     return [lat, lang];
 }
 

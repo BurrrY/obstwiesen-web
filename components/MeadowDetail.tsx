@@ -35,7 +35,7 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
 
     const meadow: Meadow = data.meadow as Meadow;
 
-    let mapCenter: [number, number] =FallbackCoords()
+    let mapCenter: [number, number] = FallbackCoords()
     let markers: [[number, number], string, string][] = []
     for (const myTree of meadow.trees) {
         if (myTree.lat && myTree.lang) {
