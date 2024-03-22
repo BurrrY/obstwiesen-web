@@ -3,7 +3,7 @@
 
 import {Tree, Event, File} from "@/__generated__/graphql";
 import {useMutation, useQuery} from "@apollo/client";
-import {GET_TREE, UPDATE_TREE} from "@/graphlql/queries";
+import {GET_MEADOW, GET_MEADOW_FOR_TREE, GET_TREE, UPDATE_TREE} from "@/graphlql/queries";
 import {NewEventForm} from "@/components/EventAdd";
 import {Maybe} from "@graphql-tools/utils";
 import Image from 'next/image';
@@ -14,6 +14,7 @@ import MapComponent, {FallbackCoords} from "@/components/map";
 import {OwcSmallButton, OwcSubmitButton} from "@/components/forms/FormElements";
 import {useState} from "react";
 import {number} from "prop-types";
+import {LoadingScreen} from "@/components/Loading";
 
 
 interface TreeDetailProps {
@@ -90,32 +91,48 @@ function EventElem(props: { data: Maybe<Array<Event>> | undefined }) {
 }
 
 export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
-    const [position, setPosition] = useState<[number, number]>([0,0])
+    const [position, setPosition] = useState<[number, number]>([0, 0])
     const [newPosition, setNewPosition] = useState<[number, number]>()
     const t = useI18n()
 
     const [updateTree] = useMutation(UPDATE_TREE)
 
+    const {data: meadowData, loading: mLoading, error: mError} = useQuery(GET_MEADOW_FOR_TREE, {
+        variables: {id: meadowid},
+    })
 
-    const {data, loading, error, refetch} = useQuery(GET_TREE, {
+    const {data: treeData, loading, error, refetch} = useQuery(GET_TREE, {
         variables: {id: treeid},
     })
 
-
-
-//  <Map center={[tree.lat, tree.lang]} markers={[[tree.lat, tree.lang]]} />
-    if (loading) return <div>{t('Loading...')}</div>
     if (error) {
         console.log("error: ", error)
         return <div>{t('error loading trees')}</div>
     }
 
-    const tree: Tree = data.tree;
+    if (loading) return (
+        <LoadingScreen />
+    );
+
+
+    const tree: Tree = treeData.tree;
 
     if (tree.lang && tree.lang) {
         //setPosition([tree.lat as number, tree.lang as number])
         //console.log("Init Pos:", position)
     }
+
+
+    let markers: [[number, number], string, string][] = []
+    if (meadowData) {
+        const tree_siblings = meadowData.meadow.trees;
+        for (const myTree of tree_siblings) {
+            if (myTree.lat && myTree.lang) {
+                markers.push([[myTree.lat, myTree.lang], myTree.name, `/meadows/${meadowid}/trees/${myTree.id}`])
+            }
+        }
+    }
+
 
     function markerReset() {
 
@@ -150,7 +167,8 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
     if (tree.lat && tree.lang) {
         center = [tree.lat, tree.lang]
     }
-    
+
+
     return (
         <div className="container mx-auto">
             <div className="flex flex-col lg:flex-row flex-wrap py-4">
@@ -176,7 +194,9 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
                         />
 
                         <div>
-                            <MapComponent center={center} draggableMarker={center}
+                            <MapComponent center={center}
+                                          draggableMarker={center}
+                                          markers={markers}
                                           onPosChanged={PosChanged}/>
                             <div className="flex flex-row">
                                 <OwcSmallButton onClick={markerReset} text={t('reset')}/>
@@ -200,7 +220,6 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
                 </main>
             </div>
         </div>
-
     );
 
 };

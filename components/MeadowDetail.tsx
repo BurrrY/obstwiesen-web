@@ -11,6 +11,7 @@ import {ImageLoader} from "@/components/ImageLoader";
 import Image from "next/image";
 import {useI18n} from "@/locales/client";
 import MapComponent, {FallbackCoords} from "@/components/map";
+import {LoadingScreen} from "@/components/Loading";
 
 
 
@@ -30,7 +31,10 @@ export const MeadowDetail = ({id}: MeadowDetailProps) => {
     })
 
 
-    if (loading) return <div>{ t('Loading...')}</div>
+
+    if (loading) return (
+        <LoadingScreen />
+    );
     if (error) return <div>{ t('error') }</div>
 
     const meadow: Meadow = data.meadow as Meadow;

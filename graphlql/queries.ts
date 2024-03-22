@@ -44,6 +44,19 @@ mutation UpdateTree($id: ID!, $lat: Float!, $lang: Float!, $name: String!) {
 `;
 
 
+export const GET_MEADOW_FOR_TREE = gql`
+query Meadow($id: ID!) {
+  meadow (meadow_id: $id) {
+       trees {
+            id
+            name
+            lat
+            lang
+        }
+  }
+}
+`;
+
 
 
 export const GET_TREE = gql`query Tree($id: ID!) {

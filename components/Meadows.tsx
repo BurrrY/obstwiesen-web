@@ -8,6 +8,7 @@ import {useEffect} from "react";
 import {OwcLinkCard} from "@/components/LinkCard";
 import {useI18n} from "@/locales/client";
 import MapComponent, {FallbackCoords} from "@/components/map";
+import {LoadingScreen} from "@/components/Loading";
 
 
 interface ChildProps {
@@ -24,7 +25,9 @@ export const Meadows = ({triggerRefetch}: ChildProps) => {
         refetch();
     }, [triggerRefetch, refetch]);
 
-    if (loading) return <div>{t('Loading...')}</div>
+    if (loading) return (
+        <LoadingScreen />
+    );
     if (error) return <div>{t('error')}</div>
 
     const meadowList: Meadow[] = data.meadows;
