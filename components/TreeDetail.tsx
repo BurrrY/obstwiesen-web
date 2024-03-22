@@ -121,7 +121,7 @@ function VarietySelector({ listData, preselect, onChanged }: VarietySelectorProp
 export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
     const [position, setPosition] = useState<[number, number]>([0, 0])
     const [newPosition, setNewPosition] = useState<[number, number]>()
-    const [newVariety, setNewVariety] = useState<[string]>()
+    const [newVariety, setNewVariety] = useState<string>()
     const t = useI18n()
 
     const [updateTree] = useMutation(UPDATE_TREE)
