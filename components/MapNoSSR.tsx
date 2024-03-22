@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import React, {useCallback, useMemo, useRef, useState} from "react";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+import L from 'leaflet';
 
 import {Icon} from 'leaflet'
 import MarkerClusterGroup from "react-leaflet-cluster";
@@ -45,6 +46,7 @@ function DraggableMarker({ initial, onPosChanged }: DraggableMarkerProps) {
 
     return (
         <Marker
+            icon={new Icon({iconUrl: "/tree_5468279.png", iconSize: [25, 41], iconAnchor: [12, 41]})}
             ref={markerRef}
             eventHandlers={eventHandlers}
             draggable={true}

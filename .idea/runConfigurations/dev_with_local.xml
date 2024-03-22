@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="dev with local" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="dev" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs>
+      <env name="NEXT_PUBLIC_GQL_HOST" value="http://localhost:8080/graphql" />
+      <env name="NEXT_PUBLIC_LAT" value="47.65" />
+      <env name="NEXT_PUBLIC_LANG" value="8.36" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>
