@@ -29,4 +29,5 @@ export default {
     'reset': 'Reset',
     'save': 'Save',
     'Map': 'Map',
+    'Variety': 'Variety',
 } as const

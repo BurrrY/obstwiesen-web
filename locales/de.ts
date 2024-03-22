@@ -28,4 +28,6 @@ export default {
 
     'reset': 'Reset',
     'save': 'Speichern',
+    'Map': 'Karte',
+    'Variety': 'Sorte',
 } as const

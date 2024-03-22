@@ -178,6 +178,11 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
                             className="block font-sans text-4xl mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
                             {tree.name}
                         </h1>
+                        {tree.variety ?
+                        <p
+                            className="block font-sans mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
+                            {t('Variety') + ': ' + tree.variety?.name}
+                        </p> : "" }
 
 
                         <Image src={`${tree.banner?.path}`}

@@ -69,6 +69,11 @@ export const GET_TREE = gql`query Tree($id: ID!) {
               parentID
               path
           }
+        variety {
+            id
+            name
+            parent
+        }
         events {
             id
             title

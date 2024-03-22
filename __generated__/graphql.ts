@@ -64,6 +64,7 @@ export type Mutation = {
   createEvent: Event;
   createMeadow: Meadow;
   createTree: Tree;
+  createVariety: Variety;
   multipleUpload: Array<File>;
   singleUpload: File;
   updateMeadow: Meadow;
@@ -83,6 +84,11 @@ export type MutationCreateMeadowArgs = {
 
 export type MutationCreateTreeArgs = {
   input: NewTree;
+};
+
+
+export type MutationCreateVarietyArgs = {
+  input: VarietyInput;
 };
 
 
@@ -133,6 +139,7 @@ export type Query = {
   meadows: Array<Meadow>;
   tree?: Maybe<Tree>;
   trees: Array<Tree>;
+  varieties: Array<Variety>;
 };
 
 
@@ -163,16 +170,30 @@ export type Tree = {
   lang?: Maybe<Scalars['Float']['output']>;
   lat?: Maybe<Scalars['Float']['output']>;
   name: Scalars['String']['output'];
+  variety?: Maybe<Variety>;
 };
 
 export type TreeInput = {
   lang?: InputMaybe<Scalars['Float']['input']>;
   lat?: InputMaybe<Scalars['Float']['input']>;
   name: Scalars['String']['input'];
+  variety?: InputMaybe<Scalars['ID']['input']>;
 };
 
 /** The `UploadFile` type, represents the request for uploading a file with a certain payload. */
 export type UploadFile = {
   file: Scalars['Upload']['input'];
   id: Scalars['Int']['input'];
+};
+
+export type Variety = {
+  __typename?: 'Variety';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  parent: Scalars['ID']['output'];
+};
+
+export type VarietyInput = {
+  name: Scalars['String']['input'];
+  parent?: InputMaybe<Scalars['ID']['input']>;
 };
