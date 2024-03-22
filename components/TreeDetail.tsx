@@ -1,9 +1,9 @@
 "use client"
 
 
-import {Tree, Event, File} from "@/__generated__/graphql";
+import {Tree, Event, File, Variety} from "@/__generated__/graphql";
 import {useMutation, useQuery} from "@apollo/client";
-import {GET_MEADOW, GET_MEADOW_FOR_TREE, GET_TREE, UPDATE_TREE} from "@/graphlql/queries";
+import {GET_MEADOW, GET_MEADOW_FOR_TREE, GET_TREE, GET_VARIETIES, UPDATE_TREE} from "@/graphlql/queries";
 import {NewEventForm} from "@/components/EventAdd";
 import {Maybe} from "@graphql-tools/utils";
 import Image from 'next/image';
@@ -15,6 +15,7 @@ import {OwcSmallButton, OwcSubmitButton} from "@/components/forms/FormElements";
 import {useState} from "react";
 import {number} from "prop-types";
 import {LoadingScreen} from "@/components/Loading";
+import {OwcSelectListElement, OwcSelectList} from "@/components/forms/SelectElem";
 
 
 interface TreeDetailProps {
@@ -90,9 +91,37 @@ function EventElem(props: { data: Maybe<Array<Event>> | undefined }) {
     );
 }
 
+
+interface VarietySelectorProps {
+    listData: any,
+    preselect: string | undefined,
+    onChanged: (newID: string) => void
+}
+
+function VarietySelector({ listData, preselect, onChanged }: VarietySelectorProps) {
+    if (listData) {
+
+        const myList = listData.varieties;
+        let selectList: Array<OwcSelectListElement> =[];
+
+        for (const variety of myList) {
+            selectList.push({
+                text: variety.name,
+                key: variety.id
+            })
+        }
+
+        return <OwcSelectList listData={selectList} preselect={preselect} onChanged={onChanged}/>
+
+    }
+
+    return "";
+}
+
 export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
     const [position, setPosition] = useState<[number, number]>([0, 0])
     const [newPosition, setNewPosition] = useState<[number, number]>()
+    const [newVariety, setNewVariety] = useState<[string]>()
     const t = useI18n()
 
     const [updateTree] = useMutation(UPDATE_TREE)
@@ -100,6 +129,8 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
     const {data: meadowData, loading: mLoading, error: mError} = useQuery(GET_MEADOW_FOR_TREE, {
         variables: {id: meadowid},
     })
+
+    const {data: varietyData, loading: vLoading, error: vError} = useQuery(GET_VARIETIES)
 
     const {data: treeData, loading, error, refetch} = useQuery(GET_TREE, {
         variables: {id: treeid},
@@ -134,8 +165,23 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
     }
 
 
+
     function markerReset() {
 
+    }
+
+    const storeVariety = async () => {
+        const data = {
+            id: tree.id,
+            name: tree.name,
+            variety: newVariety
+        }
+        console.log("storeVariety:", data)
+
+        await updateTree({
+            variables: data
+        });
+        refetch();
     }
 
     const markerStore = async () => {
@@ -163,6 +209,11 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
         setNewPosition(newLatLang)
     }
 
+    function varietyChanged(newID: string) {
+        console.log("varietyChanged:", newID)
+        setNewVariety(newID)
+    }
+
     let center: [number, number]= FallbackCoords()
     if (tree.lat && tree.lang) {
         center = [tree.lat, tree.lang]
@@ -178,11 +229,13 @@ export const TreeDetail = ({meadowid, treeid}: TreeDetailProps) => {
                             className="block font-sans text-4xl mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
                             {tree.name}
                         </h1>
-                        {tree.variety ?
-                        <p
-                            className="block font-sans mb-2 antialiased font-semibold leading-tight tracking-normal text-inherit">
-                            {t('Variety') + ': ' + tree.variety?.name}
-                        </p> : "" }
+
+                        <div className="flex flex-row font-sans gap-x-2 align-bottom">
+                            {t('Variety')}:
+
+                            <VarietySelector listData={varietyData}  preselect={tree.variety?.name} onChanged={varietyChanged} />
+                            <OwcSmallButton onClick={storeVariety} text={t('save')}/>
+                        </div>
 
 
                         <Image src={`${tree.banner?.path}`}

@@ -25,22 +25,22 @@ export const GET_MEADOW = gql`query Meadow($id: ID!) {
 
 
 export const UPDATE_TREE = gql`
-
-
-mutation UpdateTree($id: ID!, $lat: Float!, $lang: Float!, $name: String!) {
+mutation UpdateTree($id: ID!, $lat: Float, $lang: Float, $name: String!, $variety: ID) {
     updateTree(
         id: $id
-        input: { lat: $lat, lang: $lang, name: $name }
+        input: { lat: $lat, lang: $lang, name: $name, variety: $variety }
     ) {
         id
         name
         lat
         lang
+        variety {
+            id
+            name
+            parent
+        }
     }
 }
-
-
-
 `;
 
 
@@ -106,6 +106,17 @@ query Meadows {
       id
       name
   }
+}`;
+
+
+
+export const GET_VARIETIES = gql`
+query Varieties {
+    varieties {
+        id
+        name
+        parent
+    }
 }`;
 
 
