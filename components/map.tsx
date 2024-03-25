@@ -6,6 +6,7 @@ import React from "react";
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import {env} from "next-runtime-env";
+import {useGeolocation} from "@/hooks/useGeolocation";
 
 
 const MapComponentNoSSR = dynamic(() => import('./MapNoSSR'), {
@@ -21,6 +22,7 @@ interface MapComponentProps {
 
 
 const MapComponent = ({ center, markers, draggableMarker, onPosChanged }: MapComponentProps) => {
+
     return (
         <div>
             <MapComponentNoSSR center={center} markers={markers} draggableMarker={draggableMarker} onPosChanged={onPosChanged}  />

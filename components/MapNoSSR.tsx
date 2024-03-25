@@ -9,6 +9,7 @@ import L from 'leaflet';
 
 import {Icon} from 'leaflet'
 import MarkerClusterGroup from "react-leaflet-cluster";
+import {useGeolocation} from "@/hooks/useGeolocation";
 
 interface MapComponentProps {
     center: [number, number],
@@ -73,8 +74,10 @@ function DraggableMarker({ initial, onPosChanged }: DraggableMarkerProps) {
 const MapNoSSR = ({ center, markers, draggableMarker, onPosChanged }: MapComponentProps) => {
 
 
+    const location = useGeolocation()
+
     return (
-            <MapContainer center={center} zoom={19} scrollWheelZoom={false} className="" style={{height: '400px'}}>
+            <MapContainer center={center} zoom={19} scrollWheelZoom={false} className="" style={{height: '400px'}} >
 
                 <LayersControl>
 
@@ -107,6 +110,15 @@ const MapNoSSR = ({ center, markers, draggableMarker, onPosChanged }: MapCompone
                         </CircleMarker>
                     ))}
                 </MarkerClusterGroup>
+
+
+                {
+                    location.loaded && !location.error && location.coordinates ?
+                        <Marker
+                            icon={new Icon({iconUrl: "/location.svg", iconSize: [25, 41], iconAnchor: [12, 41]})} position={[location.coordinates.lat, location.coordinates.long]}></Marker>
+                    : ""
+                }
+
 
                 {draggableMarker ?  <DraggableMarker initial={draggableMarker} onPosChanged={onPosChanged} /> : ""}
 

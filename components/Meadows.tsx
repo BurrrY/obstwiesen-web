@@ -26,9 +26,26 @@ export const Meadows = ({triggerRefetch}: ChildProps) => {
     }, [triggerRefetch, refetch]);
 
     if (loading) return (
-        <LoadingScreen />
+        <div className="w-full">
+            <div className="w-full mb-8">
+                <MapComponent center={[0, 0]}/>
+            </div>
+            <div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-4 w-full">
+                {t("Loading...")}
+            </div>
+        </div>
     );
-    if (error) return <div>{t('error')}</div>
+    if (error) return (
+        <div className="w-full">
+            <div className="w-full mb-8">
+                <MapComponent center={[0, 0]}/>
+            </div>
+            <div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 gap-4 w-full">
+                error.
+            </div>
+        </div>
+
+    )
 
     const meadowList: Meadow[] = data.meadows;
 
